@@ -175,7 +175,7 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
   const textColorClass = "text-white";
 
   return (
-    <Card className={`w-full max-w-sm overflow-hidden border-none shadow-2xl ${backgroundClass} ${className || ""}`}>
+    <Card className={`w-full h-full max-w-sm overflow-hidden border-none shadow-2xl ${backgroundClass} ${className || ""}`}>
       <div className="p-8">
         {/* Location */}
         <div className="mb-6">
