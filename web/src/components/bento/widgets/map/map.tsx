@@ -3,7 +3,7 @@ import Map, { Marker } from "react-map-gl/mapbox";
 
 export default function MapBox() {
   return (
-    <div className="w-full h-full rounded-3xl overflow-hidden relative">
+    <div className="w-full h-full rounded-3xl overflow-hidden relative min-h-0">
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         initialViewState={{
