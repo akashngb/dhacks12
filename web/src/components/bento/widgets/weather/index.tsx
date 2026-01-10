@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Sunrise, Sunset, ThermometerSun } from "lucide-react";
 import { getWeatherIcon } from "./icons";
+import { cn } from "@/lib/utils";
 
 const weatherParams = {
   // 43.642581589306644, -79.3870381843017
@@ -25,7 +26,7 @@ const range = (start: number, stop: number, step: number) =>
 // Convert WMO weather code to readable condition
 function getWeatherCondition(code: number | null): string {
   if (code === null) return "Unknown";
-  
+
   const conditions: Record<number, string> = {
     0: "Clear",
     1: "Mainly Clear",
@@ -52,7 +53,7 @@ function getWeatherCondition(code: number | null): string {
     96: "Thunderstorm with Hail",
     99: "Thunderstorm with Hail",
   };
-  
+
   return conditions[code] || "Unknown";
 }
 
@@ -146,7 +147,7 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className={cn("w-full h-full flex items-center justify-center bg-[#F8F4E3] rounded-2xl", className)}>
         <div className="text-sm text-muted-foreground">Loading weather...</div>
       </div>
     );
@@ -154,7 +155,7 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
 
   if (error || !data) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className={cn("w-full h-full flex items-center justify-center bg-[#F8F4E3] rounded-2xl", className)}>
         <div className="text-sm text-muted-foreground">
           Unable to load weather
         </div>
@@ -175,12 +176,18 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
   const textColorClass = "text-white";
 
   return (
-    <Card className={`w-full h-full max-w-sm overflow-hidden border-none shadow-2xl ${backgroundClass} ${className || ""}`}>
+    <Card
+      className={`w-full h-full max-w-sm overflow-hidden border-none shadow-2xl ${backgroundClass} ${
+        className || ""
+      }`}
+    >
       <div className="p-8">
         {/* Location */}
         <div className="mb-6">
           <h2
-            className={`text-sm font-medium tracking-wide uppercase ${isDaytime ? "text-white/90" : "text-white/90"}`}
+            className={`text-sm font-medium tracking-wide uppercase ${
+              isDaytime ? "text-white/90" : "text-white/90"
+            }`}
           >
             Toronto
           </h2>
@@ -190,10 +197,26 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
         <div className="flex items-start justify-between mb-8">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className={`text-7xl font-light tracking-tight ${textColorClass}`}>{currentTemp}</span>
-              <span className={`text-3xl font-light ${isDaytime ? "text-white/80" : "text-white/80"}`}>°C</span>
+              <span
+                className={`text-7xl font-light tracking-tight ${textColorClass}`}
+              >
+                {currentTemp}
+              </span>
+              <span
+                className={`text-3xl font-light ${
+                  isDaytime ? "text-white/80" : "text-white/80"
+                }`}
+              >
+                °C
+              </span>
             </div>
-            <p className={`mt-2 text-base ${isDaytime ? "text-white/90" : "text-white/90"}`}>{condition}</p>
+            <p
+              className={`mt-2 text-base ${
+                isDaytime ? "text-white/90" : "text-white/90"
+              }`}
+            >
+              {condition}
+            </p>
           </div>
 
           {/* Weather Icon */}
@@ -205,41 +228,85 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
         </div>
 
         {/* Divider */}
-        <div className={`h-px mb-6 ${isDaytime ? "bg-white/20" : "bg-white/20"}`} />
+        <div
+          className={`h-px mb-6 ${isDaytime ? "bg-white/20" : "bg-white/20"}`}
+        />
 
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-6">
           {/* High/Low */}
           <div className="flex flex-col gap-2">
-            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+            <div
+              className={`flex items-center gap-2 ${
+                isDaytime ? "text-white/80" : "text-white/80"
+              }`}
+            >
               <ThermometerSun className="h-4 w-4" strokeWidth={1.5} />
               <span className="text-xs uppercase tracking-wider">H/L</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className={`text-2xl font-light ${textColorClass}`}>{maxTemp}</span>
-              <span className={`text-sm ${isDaytime ? "text-white/80" : "text-white/80"}`}>°</span>
-              <span className={`text-lg mx-0.5 ${isDaytime ? "text-white/80" : "text-white/80"}`}>/</span>
-              <span className={`text-2xl font-light ${textColorClass}`}>{minTemp}</span>
-              <span className={`text-sm ${isDaytime ? "text-white/80" : "text-white/80"}`}>°</span>
+              <span className={`text-2xl font-light ${textColorClass}`}>
+                {maxTemp}
+              </span>
+              <span
+                className={`text-sm ${
+                  isDaytime ? "text-white/80" : "text-white/80"
+                }`}
+              >
+                °
+              </span>
+              <span
+                className={`text-lg mx-0.5 ${
+                  isDaytime ? "text-white/80" : "text-white/80"
+                }`}
+              >
+                /
+              </span>
+              <span className={`text-2xl font-light ${textColorClass}`}>
+                {minTemp}
+              </span>
+              <span
+                className={`text-sm ${
+                  isDaytime ? "text-white/80" : "text-white/80"
+                }`}
+              >
+                °
+              </span>
             </div>
           </div>
 
           {/* Sunrise */}
           <div className="flex flex-col gap-2">
-            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+            <div
+              className={`flex items-center gap-2 ${
+                isDaytime ? "text-white/80" : "text-white/80"
+              }`}
+            >
               <Sunrise className="h-4 w-4" strokeWidth={1.5} />
               <span className="text-xs uppercase tracking-wider">Rise</span>
             </div>
-            <div className={`text-base font-light tabular-nums ${textColorClass}`}>{sunriseTime}</div>
+            <div
+              className={`text-base font-light tabular-nums ${textColorClass}`}
+            >
+              {sunriseTime}
+            </div>
           </div>
 
           {/* Sunset */}
           <div className="flex flex-col gap-2">
-            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+            <div
+              className={`flex items-center gap-2 ${
+                isDaytime ? "text-white/80" : "text-white/80"
+              }`}
+            >
               <Sunset className="h-4 w-4" strokeWidth={1.5} />
               <span className="text-xs uppercase tracking-wider">Set</span>
             </div>
-            <div className={`text-base font-light tabular-nums ${textColorClass}`}>{sunsetTime}</div>
+            <div
+              className={`text-base font-light tabular-nums ${textColorClass}`}
+            >
+              {sunsetTime}
+            </div>
           </div>
         </div>
       </div>
