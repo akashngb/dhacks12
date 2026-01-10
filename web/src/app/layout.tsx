@@ -10,6 +10,7 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,13 +34,25 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="h-full">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
-        >
-          {children}
-        </body>
-      </html>
+      <Providers>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <header className="flex justify-end items-center p-4 gap-4 h-16">
+              <SignedOut>
+                <SignInButton>
+                  <Button>Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </header>
+            {children}
+          </body>
+        </html>
+      </Providers>
     </ClerkProvider>
   );
 }

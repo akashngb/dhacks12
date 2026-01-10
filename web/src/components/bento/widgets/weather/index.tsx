@@ -1,306 +1,248 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { cn } from "@/lib/utils"
-import { fetchWeatherApi } from "openmeteo"
-import type { JSX } from "react/jsx-runtime"
+import { fetchWeatherApi } from "openmeteo";
+import { useQuery as useReactQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { Card } from "@/components/ui/card";
+import { Sunrise, Sunset, ThermometerSun } from "lucide-react";
+import { getWeatherIcon } from "./icons";
 
-interface WeatherData {
-  current: {
-    temperature: number
-    weatherCode: number
-    humidity: number
-    precipitationProbability: number
-    windSpeed: number
-    feelsLike: number
+const weatherParams = {
+  // 43.642581589306644, -79.3870381843017
+  latitude: [43.642581589306644],
+  longitude: [-79.3870381843017],
+  current: "temperature_2m,weather_code,wind_speed_10m,wind_direction_10m",
+  hourly: "temperature_2m,relative_humidity_2m",
+  daily: "weather_code,temperature_2m_max,temperature_2m_min",
+  timezone: "America/Toronto",
+};
+
+const url = "https://api.open-meteo.com/v1/forecast";
+
+const range = (start: number, stop: number, step: number) =>
+  Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+
+// Convert WMO weather code to readable condition
+function getWeatherCondition(code: number | null): string {
+  if (code === null) return "Unknown";
+  
+  const conditions: Record<number, string> = {
+    0: "Clear",
+    1: "Mainly Clear",
+    2: "Partly Cloudy",
+    3: "Overcast",
+    45: "Foggy",
+    48: "Foggy",
+    51: "Light Drizzle",
+    53: "Drizzle",
+    55: "Heavy Drizzle",
+    61: "Light Rain",
+    63: "Rain",
+    65: "Heavy Rain",
+    71: "Light Snow",
+    73: "Snow",
+    75: "Heavy Snow",
+    77: "Snow Grains",
+    80: "Light Showers",
+    81: "Showers",
+    82: "Heavy Showers",
+    85: "Light Snow Showers",
+    86: "Snow Showers",
+    95: "Thunderstorm",
+    96: "Thunderstorm with Hail",
+    99: "Thunderstorm with Hail",
+  };
+  
+  return conditions[code] || "Unknown";
+}
+
+async function getWeatherData() {
+  const responses = await fetchWeatherApi(url, weatherParams);
+  const response = responses[0];
+
+  const utcOffsetSeconds = response.utcOffsetSeconds();
+
+  const current = response.current();
+  const hourly = response.hourly();
+  const daily = response.daily();
+
+  if (!current || !hourly || !daily) {
+    throw new Error("Failed to fetch weather data");
   }
-  daily: {
-    time: string[]
-    temperature_2m_max: number[]
-    temperature_2m_min: number[]
-    weather_code: number[]
-  }
+
+  // Fetch sunrise/sunset separately since they're ISO8601 strings, not numeric values
+  const sunTimesUrl = `${url}?latitude=${weatherParams.latitude[0]}&longitude=${weatherParams.longitude[0]}&daily=sunrise,sunset&timezone=${weatherParams.timezone}`;
+  const sunTimesResponse = await fetch(sunTimesUrl);
+  const sunTimesData = await sunTimesResponse.json();
+
+  const weatherData = {
+    current: {
+      time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+      temperature: current.variables(0)?.value() ?? 0, // Default to 0 if undefined
+      weatherCode: current.variables(1)?.value() ?? null,
+      windSpeed: current.variables(2)?.value() ?? 0,
+      windDirection: current.variables(3)?.value() ?? 0,
+    },
+    hourly: {
+      time: range(
+        Number(hourly.time()),
+        Number(hourly.timeEnd()),
+        hourly.interval()
+      ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+      temperature: hourly.variables(0)?.valuesArray() || [], // `.valuesArray()` get an array of floats
+      humidity: hourly.variables(1)?.valuesArray() || [],
+    },
+    daily: {
+      time: range(
+        Number(daily.time()),
+        Number(daily.timeEnd()),
+        daily.interval()
+      ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+      weatherCode: daily.variables(0)?.valuesArray() || [],
+      temperatureMax: daily.variables(1)?.valuesArray() || [],
+      temperatureMin: daily.variables(2)?.valuesArray() || [],
+      sunrise: sunTimesData.daily.sunrise as string[],
+      sunset: sunTimesData.daily.sunset as string[],
+    },
+  };
+
+  return weatherData;
 }
 
 interface WeatherWidgetProps {
-  className?: string
-}
-
-const weatherIcons: Record<number, { icon: JSX.Element; label: string }> = {
-  0: {
-    label: "Clear",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="5" fill="#FDB813" />
-        <g stroke="#FDB813" strokeWidth="2" strokeLinecap="round">
-          <path d="M12 1v2M12 21v2M23 12h-2M3 12H1M20.485 3.515l-1.414 1.414M4.929 19.071l-1.414 1.414M20.485 20.485l-1.414-1.414M4.929 4.929L3.515 3.515" />
-        </g>
-      </svg>
-    ),
-  },
-  1: {
-    label: "Mainly Clear",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="5" fill="#FDB813" />
-        <g stroke="#FDB813" strokeWidth="2" strokeLinecap="round">
-          <path d="M12 1v2M12 21v2M23 12h-2M3 12H1" />
-        </g>
-      </svg>
-    ),
-  },
-  2: {
-    label: "Partly Cloudy",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <circle cx="10" cy="10" r="4" fill="#FDB813" />
-        <path d="M18 14.5a3.5 3.5 0 0 1 0 7H7a4 4 0 0 1-.5-7.95" fill="#E0E7FF" stroke="#C7D2FE" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  3: {
-    label: "Overcast",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <path d="M18 13a4 4 0 0 1 0 8H7a5 5 0 0 1-.5-9.97" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1.5" />
-        <path d="M16 9a4 4 0 0 1 0 8" fill="#D1D5DB" stroke="#9CA3AF" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  45: {
-    label: "Foggy",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <g stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round">
-          <path d="M4 12h16M4 16h16M4 20h12" opacity="0.7" />
-        </g>
-      </svg>
-    ),
-  },
-  48: {
-    label: "Foggy",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <g stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round">
-          <path d="M4 12h16M4 16h16M4 20h12" opacity="0.7" />
-        </g>
-      </svg>
-    ),
-  },
-  51: {
-    label: "Light Drizzle",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <path d="M18 13a4 4 0 0 1 0 8H7a5 5 0 0 1-.5-9.97" fill="#93C5FD" stroke="#60A5FA" strokeWidth="1.5" />
-        <g stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round">
-          <path d="M8 19v3M12 19v3M16 19v3M10 16v2M14 16v2" />
-        </g>
-      </svg>
-    ),
-  },
-  61: {
-    label: "Rain",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <path d="M18 13a4 4 0 0 1 0 8H7a5 5 0 0 1-.5-9.97" fill="#60A5FA" stroke="#3B82F6" strokeWidth="1.5" />
-        <g stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round">
-          <path d="M8 19v3M12 19v3M16 19v3M10 16v2M14 16v2" />
-        </g>
-      </svg>
-    ),
-  },
-  71: {
-    label: "Snow",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <path d="M18 13a4 4 0 0 1 0 8H7a5 5 0 0 1-.5-9.97" fill="#E0E7FF" stroke="#C7D2FE" strokeWidth="1.5" />
-        <g fill="#DBEAFE">
-          <circle cx="8" cy="19" r="1.5" />
-          <circle cx="12" cy="20" r="1.5" />
-          <circle cx="16" cy="19" r="1.5" />
-        </g>
-      </svg>
-    ),
-  },
-  95: {
-    label: "Thunderstorm",
-    icon: (
-      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
-        <path d="M18 13a4 4 0 0 1 0 8H7a5 5 0 0 1-.5-9.97" fill="#6B7280" stroke="#4B5563" strokeWidth="1.5" />
-        <path d="M13 14l-2 4h2l-2 4" stroke="#FDB813" strokeWidth="2" fill="#FDB813" />
-      </svg>
-    ),
-  },
-}
-
-function getWeatherIcon(code: number) {
-  if (code in weatherIcons) return weatherIcons[code]
-  if (code >= 80 && code <= 82) return weatherIcons[61] // Rain showers
-  if (code >= 71 && code <= 77) return weatherIcons[71] // Snow
-  if (code >= 61 && code <= 65) return weatherIcons[61] // Rain
-  if (code >= 51 && code <= 55) return weatherIcons[51] // Drizzle
-  return weatherIcons[0] // Default to clear
+  className?: string;
+  iconSize?: number; // Size in pixels, defaults to 64
 }
 
 export function WeatherWidget({ className }: WeatherWidgetProps) {
-  const [weather, setWeather] = useState<WeatherData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [showForecast, setShowForecast] = useState(true)
+  const { data, isLoading, error } = useReactQuery({
+    queryKey: ["weather"],
+    queryFn: () => getWeatherData(),
+    refetchInterval: 5 * 60 * 1000,
+  });
 
-  useEffect(() => {
-    async function fetchWeather() {
-      try {
-        const params = {
-          latitude: 43.65107,
-          longitude: -79.347015,
-          current: [
-            "temperature_2m",
-            "weather_code",
-            "relative_humidity_2m",
-            "apparent_temperature",
-            "precipitation_probability",
-            "wind_speed_10m",
-          ],
-          daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
-          timezone: "America/Toronto",
-          forecast_days: 5,
-        }
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
 
-        const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", params)
-        const response = responses[0]
+  const isDaytime = useMemo(() => {
+    if (!data) return true;
 
-        const current = response.current()!
-        const daily = response.daily()!
+    const currentTime = data.current.time;
+    const sunrise = data.daily.sunrise[0]
+      ? new Date(data.daily.sunrise[0])
+      : null;
+    const sunset = data.daily.sunset[0] ? new Date(data.daily.sunset[0]) : null;
 
-        const weatherCodeValues = Object.values(daily.variables(0)!.valuesArray()!)
-        const tempMaxValues = Object.values(daily.variables(1)!.valuesArray()!)
-        const tempMinValues = Object.values(daily.variables(2)!.valuesArray()!)
+    return sunrise && sunset
+      ? currentTime >= sunrise && currentTime < sunset
+      : true; // default to day if no sunrise/sunset data
+  }, [data]);
 
-        const baseTime = Number(daily.time())
-        const timeArray = Array.from(
-          { length: weatherCodeValues.length },
-          (_, i) => new Date((baseTime + i * 86400) * 1000).toISOString().split("T")[0],
-        )
-
-        setWeather({
-          current: {
-            temperature: Math.round(current.variables(0)!.value()),
-            weatherCode: current.variables(1)!.value(),
-            humidity: Math.round(current.variables(2)!.value()),
-            feelsLike: Math.round(current.variables(3)!.value()),
-            precipitationProbability: Math.round(current.variables(4)!.value()),
-            windSpeed: Math.round(current.variables(5)!.value()),
-          },
-          daily: {
-            time: timeArray,
-            temperature_2m_max: tempMaxValues,
-            temperature_2m_min: tempMinValues,
-            weather_code: weatherCodeValues,
-          },
-        })
-      } catch (error) {
-        console.error("Failed to fetch weather:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchWeather()
-    const interval = setInterval(fetchWeather, 600000)
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const cycleInterval = setInterval(() => {
-      setShowForecast((prev) => !prev)
-    }, 5000)
-    return () => clearInterval(cycleInterval)
-  }, [])
-
-  if (loading) {
+  if (isLoading) {
     return (
-      <div className={cn("flex items-center justify-center h-full w-full", className)}>
-        <div className="text-muted-foreground text-sm">Loading weather...</div>
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="text-sm text-muted-foreground">Loading weather...</div>
       </div>
-    )
+    );
   }
 
-  if (!weather) return null
+  if (error || !data) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="text-sm text-muted-foreground">
+          Unable to load weather
+        </div>
+      </div>
+    );
+  }
 
-  const currentWeather = getWeatherIcon(weather.current.weatherCode)
-  const forecastDays = 3
+  const currentTemp = Math.round(data.current.temperature);
+  const maxTemp = Math.round(data.daily.temperatureMax[0]);
+  const minTemp = Math.round(data.daily.temperatureMin[0]);
+  const sunriseTime = formatTime(data.daily.sunrise[0]);
+  const sunsetTime = formatTime(data.daily.sunset[0]);
+  const condition = getWeatherCondition(data.current.weatherCode);
+
+  const backgroundClass = isDaytime
+    ? "bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200"
+    : "bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500";
+  const textColorClass = "text-white";
 
   return (
-    <div className={cn("flex flex-col justify-between h-full w-full relative", className)}>
-      {/* Header with current weather */}
-      <div className="flex-col space-y-2">
-        <div className="flex items-center justify-between">
+    <Card className={`w-full max-w-sm overflow-hidden border-none shadow-2xl ${backgroundClass} ${className || ""}`}>
+      <div className="p-8">
+        {/* Location */}
+        <div className="mb-6">
+          <h2
+            className={`text-sm font-medium tracking-wide uppercase ${isDaytime ? "text-white/90" : "text-white/90"}`}
+          >
+            Toronto
+          </h2>
+        </div>
+
+        {/* Main Temperature Display */}
+        <div className="flex items-start justify-between mb-8">
           <div>
-            <h2 className="text-sm font-medium">Toronto Weather</h2>
-            <p className="text-xs text-muted-foreground">{currentWeather.label}</p>
+            <div className="flex items-baseline gap-1">
+              <span className={`text-7xl font-light tracking-tight ${textColorClass}`}>{currentTemp}</span>
+              <span className={`text-3xl font-light ${isDaytime ? "text-white/80" : "text-white/80"}`}>°C</span>
+            </div>
+            <p className={`mt-2 text-base ${isDaytime ? "text-white/90" : "text-white/90"}`}>{condition}</p>
           </div>
-          <div className="w-10 h-10">{currentWeather.icon}</div>
-        </div>
-        
-        <div className="flex items-baseline gap-1">
-          <span className="text-3xl font-bold">{weather.current.temperature}°</span>
-          <span className="text-sm text-muted-foreground">Feels like {weather.current.feelsLike}°</span>
-        </div>
-      </div>
 
-      {/* Animated content area */}
-      <div className="relative flex-1 min-h-0 overflow-hidden mt-3">
-        {/* Forecast View */}
-        <div
-          className={cn(
-            "absolute inset-0 transition-all duration-500 ease-in-out",
-            showForecast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none",
-          )}
-        >
-          <div className="space-y-1.5">
-            {weather.daily.time.slice(1, forecastDays + 1).map((date, index) => {
-              const dayWeather = getWeatherIcon(weather.daily.weather_code[index + 1])
-              const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" })
-
-              return (
-                <div key={date} className="flex items-center justify-between text-sm">
-                  <span className="w-8 text-muted-foreground">{dayName}</span>
-                  <div className="w-6 h-6">{dayWeather.icon}</div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold">{Math.round(weather.daily.temperature_2m_max[index + 1])}°</span>
-                    <span className="text-muted-foreground text-xs">
-                      {Math.round(weather.daily.temperature_2m_min[index + 1])}°
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
+          {/* Weather Icon */}
+          <div className="mt-1">
+            <div className="h-24 w-24 [&>svg]:h-full [&>svg]:w-full">
+              {getWeatherIcon(data.current.weatherCode ?? 0, isDaytime)}
+            </div>
           </div>
         </div>
 
-        {/* Details View */}
-        <div
-          className={cn(
-            "absolute inset-0 transition-all duration-500 ease-in-out",
-            !showForecast ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
-          )}
-        >
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="space-y-0.5">
-              <div className="text-muted-foreground text-xs">Humidity</div>
-              <div className="font-semibold">{weather.current.humidity}%</div>
+        {/* Divider */}
+        <div className={`h-px mb-6 ${isDaytime ? "bg-white/20" : "bg-white/20"}`} />
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-3 gap-6">
+          {/* High/Low */}
+          <div className="flex flex-col gap-2">
+            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+              <ThermometerSun className="h-4 w-4" strokeWidth={1.5} />
+              <span className="text-xs uppercase tracking-wider">H/L</span>
             </div>
-            <div className="space-y-0.5">
-              <div className="text-muted-foreground text-xs">Wind</div>
-              <div className="font-semibold">{weather.current.windSpeed} km/h</div>
+            <div className="flex items-baseline gap-1">
+              <span className={`text-2xl font-light ${textColorClass}`}>{maxTemp}</span>
+              <span className={`text-sm ${isDaytime ? "text-white/80" : "text-white/80"}`}>°</span>
+              <span className={`text-lg mx-0.5 ${isDaytime ? "text-white/80" : "text-white/80"}`}>/</span>
+              <span className={`text-2xl font-light ${textColorClass}`}>{minTemp}</span>
+              <span className={`text-sm ${isDaytime ? "text-white/80" : "text-white/80"}`}>°</span>
             </div>
-            <div className="space-y-0.5">
-              <div className="text-muted-foreground text-xs">Rain</div>
-              <div className="font-semibold">{weather.current.precipitationProbability}%</div>
+          </div>
+
+          {/* Sunrise */}
+          <div className="flex flex-col gap-2">
+            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+              <Sunrise className="h-4 w-4" strokeWidth={1.5} />
+              <span className="text-xs uppercase tracking-wider">Rise</span>
             </div>
+            <div className={`text-base font-light tabular-nums ${textColorClass}`}>{sunriseTime}</div>
+          </div>
+
+          {/* Sunset */}
+          <div className="flex flex-col gap-2">
+            <div className={`flex items-center gap-2 ${isDaytime ? "text-white/80" : "text-white/80"}`}>
+              <Sunset className="h-4 w-4" strokeWidth={1.5} />
+              <span className="text-xs uppercase tracking-wider">Set</span>
+            </div>
+            <div className={`text-base font-light tabular-nums ${textColorClass}`}>{sunsetTime}</div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    </Card>
+  );
 }

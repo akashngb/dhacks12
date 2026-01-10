@@ -31,6 +31,7 @@ export function TimeWidget() {
     return () => clearInterval(interval)
   }, [])
 
+
   return (
     <Card className="p-6 flex flex-col justify-between">
       <div>
