@@ -11,7 +11,7 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        `grid gap-6 p-4 
+        `grid gap-6 p-4 grid-rows-8 grid-cols-16
         ${classNames?.container ?? ""}`
       )}
       style={{
