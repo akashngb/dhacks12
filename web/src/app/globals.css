@@ -180,3 +180,37 @@
     transform: translateY(0);
   }
 }
+
+/* Minimal Sidebar Styles */
+.sidebar {
+  @apply fixed left-0 top-0 h-full bg-sidebar text-sidebar-foreground border-r border-sidebar-border;
+  width: 250px;
+  z-index: 50;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar-header {
+  @apply p-4 border-b border-sidebar-border;
+}
+
+.sidebar-content {
+  @apply flex flex-col gap-2 p-4 overflow-y-auto;
+  height: calc(100% - 60px);
+}
+
+.sidebar-item {
+  @apply px-3 py-2 rounded-md transition-colors cursor-pointer;
+  @apply hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+}
+
+.sidebar-item-active {
+  @apply bg-sidebar-primary text-sidebar-primary-foreground;
+}
+
+.sidebar-footer {
+  @apply absolute bottom-0 left-0 right-0 p-4 border-t border-sidebar-border;
+}

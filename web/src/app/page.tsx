@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChatUi } from "@/components/chat";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Linkedin, Calendar, MapPin, Clock, Tag } from "lucide-react";
+import { Linkedin, Calendar, MapPin, Clock, Tag,Youtube } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { useQuery as useReactQuery } from "@tanstack/react-query";
@@ -272,11 +272,15 @@ export default function Page() {
 
             <div className="bento-card p-4 overflow-hidden row-span-3 col-span-1 row-start-2 col-start-11 animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)] transition-transform duration-150 hover:scale-[1.02]">
               <div className="w-full h-full flex flex-col items-center justify-between">
-                <Link href="https://github.com/akashngb/dhacks12">
+                <Link href="https://github.com/akashngb/dhacks12" target="_blank">
                   <Github className="w-10 h-10" />
                 </Link>
-                <Linkedin />
-                <Devpost className="w-10 h-10" />
+                <Link href={"https://youtube.com/watch?v=dQw4w9WgXcQ"} target="_blank">
+                  <Youtube className="w-10 h-10" />
+                </Link>
+                <Link href="https://devpost.com/software/big-city" target="_blank">
+                  <Devpost className="w-10 h-10" />
+                </Link>
               </div>
             </div>
 

@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const result = streamText({
     model: google(model || "gemini-3-flash-preview"),
     messages: await convertToModelMessages(messages),
-    system: "You are an AI assistant for 'My Toronto'. Use the tools provided to help the user plan their day in Toronto!",
+    system: "You are an AI assistant for 'Big City', an app focused on helping users explore the city of Toronto. Use the tools provided to help the user plan their day in Toronto!",
     onError: (error) => {
       console.error("error",error);
     },
