@@ -7,16 +7,7 @@ import ExpandedWeather from "../components/bento/widgets/weather/ExpandedWeather
 import ExpandedNews from "../components/bento/widgets/news/ExpandedNews";
 import ExpandedMap from "../components/bento/widgets/map/ExpandedMap";
 import ExpandedEmpty from "../components/bento/widgets/ExpandedEmpty";
-import { SignedIn } from "@clerk/nextjs";
-import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import ExpandedChat from "../components/bento/widgets/ExpandedChat";
 
 export default function Home() {
@@ -33,12 +24,14 @@ export default function Home() {
         <div
           className="bento-card p-4 rounded-2xl overflow-hidden row-span-3 col-span-3 row-start-2 col-start-6 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.1s] cursor-pointer"
           onClick={() => setExpandedCard("card3")}
-        ></div>
+        >
+          <p>Card 3</p>
+        </div>
         <div
           className="bento-card p-4 rounded-2xl overflow-hidden row-span-3 col-span-3 row-start-2 col-start-9 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer"
           onClick={() => setExpandedCard("news")}
         >
-          <NewsWidget expanded={false} />
+          <NewsWidget />
         </div>
         <div
           className="bento-card p-4 rounded-2xl overflow-hidden row-span-2 col-span-4 row-start-2 col-start-12 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.3s] cursor-pointer"
