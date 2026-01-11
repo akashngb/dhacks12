@@ -8,18 +8,10 @@ import {
   SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useQuery, useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { Featured } from "@/components/bento/widgets/featured";
 import { WeatherWidget } from "@/components/bento/widgets/weather";
 import NewsWidget from "@/components/bento/widgets/news/news";
 import { Github } from "@/components/bento/widgets/socials/github";
-import ExpandedWeather from "@/components/bento/widgets/weather/ExpandedWeather";
 import Devpost from "@/components/bento/widgets/socials/devpost";
 import BackIcon from "@/components/bento/widgets/map/backIcon";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +24,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useQuery as useReactQuery } from "@tanstack/react-query";
 import { scrapeEvents } from "@/server/events";
 import { Skeleton } from "@/components/ui/skeleton";
+import Authenticated from "./authenticated";
 
 const routes = [
   {
@@ -187,42 +180,17 @@ export default function Page() {
                             <span className="truncate">{todo.events[currentEventIndex].location}</span>
                           </div>
                         )}
-
-                        {todo.events[currentEventIndex].category && (
-                          <div className="flex items-center gap-1.5">
-                            <Badge 
-                              variant="secondary"
-                              className="px-1.5 py-0.5 h-5 flex items-center gap-1 bg-white/60 text-[10px]"
-                            >
-                              <Tag className="w-2.5 h-2.5" />
-                              <span>{todo.events[currentEventIndex].category}</span>
-                            </Badge>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Progress Dots */}
-                      <div className="flex items-center justify-center gap-1 pt-1 flex-shrink-0">
-                        {todo.events.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentEventIndex(index)}
-                            className={cn(
-                              "transition-all duration-300",
-                              index === currentEventIndex 
-                                ? "w-4 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full" 
-                                : "w-1 h-1 bg-gray-400 rounded-full hover:bg-gray-500"
-                            )}
-                          />
-                        ))}
                       </div>
                     </motion.div>
                   </AnimatePresence>
                 </div>
               )}
             </div>
-            <div className="bento-card p-4 overflow-hidden row-span-2 col-span-4 row-start-2 col-start-12 animate-slide-up fill-mode-[both] [animation-delay:0.3s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)] transition-transform duration-150 hover:scale-[1.02]"></div>
-
+            <div className="bento-card p-4 overflow-hidden row-span-2 col-span-4 row-start-2 col-start-12 animate-slide-up fill-mode-[both] [animation-delay:0.3s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)] transition-transform duration-150 hover:scale-[1.02]">
+              <Authenticated>
+                <Featured />
+              </Authenticated>
+            </div>
             <div
               className={cn(
                 "bento-card p-6 row-span-3 col-span-5 row-start-2 col-start-6 bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]",

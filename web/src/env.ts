@@ -5,7 +5,6 @@ export const env = createEnv({
   server: {
     CLERK_SECRET_KEY: z.string().min(1),
     CONVEX_DEPLOYMENT: z.string().min(1),
-    OPENROUTER_API_KEY: z.string().min(1),
     GCLOUD_API_KEY: z.string().min(1),
     INTERNAL_CONVEX_SECRET: z.string().min(1),
     EXA_API_KEY: z.string().min(1),

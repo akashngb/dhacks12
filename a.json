@@ -1,0 +1,128 @@
+[
+  {
+    "content": "Hands-on pottery class for beginners with wheel throwing and glazing.",
+    "images": [],
+    "location": { "longitude": -79.3779, "latitude": 43.6529 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600000000,
+    "updatedAt": 1736600000000
+  },
+  {
+    "content": "Catch the latest releases in the unique drive-in experience.",
+    "images": [],
+    "location": { "longitude": -79.3961, "latitude": 43.6325 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600100000,
+    "updatedAt": 1736600100000
+  },
+  {
+    "content": "Rides, games, concerts, and delicious food at the Canadian National Exhibition.",
+    "images": [],
+    "location": { "longitude": -79.4167, "latitude": 43.6369 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600200000,
+    "updatedAt": 1736600200000
+  },
+  {
+    "content": "Free entry for post-secondary students to the Art Gallery of Ontario on select evenings.",
+    "images": [],
+    "location": { "longitude": -79.3925, "latitude": 43.6536 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600300000,
+    "updatedAt": 1736600300000
+  },
+  {
+    "content": "Enjoy a split screening event of indie films and classics.",
+    "images": [],
+    "location": { "longitude": -79.3905, "latitude": 43.6466 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600400000,
+    "updatedAt": 1736600400000
+  },
+  {
+    "content": "Buy one get one free pizza deal perfect for students.",
+    "images": [],
+    "location": { "longitude": -79.3806, "latitude": 43.6561 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600500000,
+    "updatedAt": 1736600500000
+  },
+  {
+    "content": "Unlimited board games with drinks and snacks for groups of friends.",
+    "images": [],
+    "location": { "longitude": -79.3957, "latitude": 43.6622 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600600000,
+    "updatedAt": 1736600600000
+  },
+  {
+    "content": "Bouldering and top-rope climbing sessions suitable for all levels.",
+    "images": [],
+    "location": { "longitude": -79.3623, "latitude": 43.6548 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600700000,
+    "updatedAt": 1736600700000
+  },
+  {
+    "content": "Late-night karaoke fun with student discounts on drinks.",
+    "images": [],
+    "location": { "longitude": -79.3820, "latitude": 43.6532 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600800000,
+    "updatedAt": 1736600800000
+  },
+  {
+    "content": "Try stand-up or enjoy local comedians performing live.",
+    "images": [],
+    "location": { "longitude": -79.4012, "latitude": 43.6515 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736600900000,
+    "updatedAt": 1736600900000
+  },
+  {
+    "content": "Team-based puzzle solving in a historic castle setting.",
+    "images": [],
+    "location": { "longitude": -79.4094, "latitude": 43.6780 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736601000000,
+    "updatedAt": 1736601000000
+  },
+  {
+    "content": "Relaxing evening picnic by the lake with stunning sunset views.",
+    "images": [],
+    "location": { "longitude": -79.3899, "latitude": 43.6205 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736601100000,
+    "updatedAt": 1736601100000
+  },
+  {
+    "content": "Guided tour exploring Toronto's vibrant street art scene.",
+    "images": [],
+    "location": { "longitude": -79.3986, "latitude": 43.6577 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736601200000,
+    "updatedAt": 1736601200000
+  },
+  {
+    "content": "Fun indoor activity with trampolines, dodgeball, and foam pits.",
+    "images": [],
+    "location": { "longitude": -79.3346, "latitude": 43.7330 },
+    "tags": [],
+    "userId": "0",
+    "createdAt": 1736601300000,
+    "updatedAt": 1736601300000
+  }
+]

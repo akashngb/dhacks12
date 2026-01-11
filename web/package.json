@@ -11,6 +11,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.6",
     "@ai-sdk/react": "^3.0.29",
     "@clerk/nextjs": "^6.36.7",
     "@googlemaps/google-maps-services-js": "^3.4.2",

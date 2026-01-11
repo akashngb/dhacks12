@@ -1,17 +1,18 @@
 import { streamText, convertToModelMessages,stepCountIs,tool } from "ai";
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { z } from "zod";
 import { addressToLatLng, textSearchPlaces, textSearchPlacesOptionsSchema } from "@/google/maps";
+import { env } from "@/env";
 
-const openrouter = createOpenRouter({
-  apiKey: process.env.OPEN_ROUTER_API_KEY,
+const google = createGoogleGenerativeAI({
+  apiKey: env.GCLOUD_API_KEY,
 });
 
 export async function POST(req: Request) {
   const { messages, model } = await req.json();
 
   const result = streamText({
-    model: openrouter(model || "google/gemini-3-flash-preview"),
+    model: google(model || "gemini-3-flash-preview"),
     messages: await convertToModelMessages(messages),
     system: "You are an AI assistant for 'My Toronto'. Use the tools provided to help the user plan their day in Toronto!",
     onError: (error) => {

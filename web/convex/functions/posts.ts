@@ -41,8 +41,14 @@ export const listPosts = query({
   args: {
     limit: v.optional(v.number()),
   },
-  handler: async (ctx, { limit = 50 }) => {
-    const posts = await ctx.db.query("posts").order("desc").take(limit);
+  handler: async (ctx, args) => {
+    const limit = Math.max(1, Math.min(args.limit ?? 50, 100)); // Ensure limit is between 1 and 100
+    
+    // Query all posts, sort by createdAt descending, and take the limit
+    const allPosts = await ctx.db.query("posts").collect();
+    const posts = allPosts
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .slice(0, limit);
 
     // Get URLs for all images in all posts
     return await Promise.all(
@@ -61,6 +67,14 @@ export const listPosts = query({
         };
       })
     );
+  },
+});
+
+export const listEvents = query({
+  args: {},
+  handler: async (ctx) => {
+    const events = await ctx.db.query("events").collect();
+    return events;
   },
 });
 

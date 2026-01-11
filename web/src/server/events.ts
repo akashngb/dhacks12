@@ -1,12 +1,13 @@
 "use server";
 
 import { generateObject } from "ai";
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import Exa from "exa-js";
 import { z } from "zod";
+import { env } from "@/env";
 
-const openrouter = createOpenRouter({
-  apiKey: process.env.OPENROUTER_API_KEY,
+const google = createGoogleGenerativeAI({
+  apiKey: env.GCLOUD_API_KEY,
 });
 
 const eventSchema = z.object({
@@ -69,7 +70,7 @@ ${result.highlights ? `Highlights: ${result.highlights.join("\n")}` : ""}
 
   // Use Gemini to parse and structure the events
   const { object } = await generateObject({
-    model: openrouter("google/gemini-3-flash-preview"),
+    model: google("gemini-3-flash-preview"),
     schema: eventSchema,
     prompt: `You are an event curator for Toronto. Based on the following search results about events happening in Toronto today (${formattedDate}), extract and return a list of relevant events.
 
