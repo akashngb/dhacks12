@@ -1,4 +1,4 @@
-import { mutation, query } from "."
+import { mutation, query } from ".";
 import { v } from "convex/values";
 
 export const generateUploadUrl = mutation({
@@ -42,10 +42,7 @@ export const listPosts = query({
     limit: v.optional(v.number()),
   },
   handler: async (ctx, { limit = 50 }) => {
-    const posts = await ctx.db
-      .query("posts")
-      .order("desc")
-      .take(limit);
+    const posts = await ctx.db.query("posts").order("desc").take(limit);
 
     // Get URLs for all images in all posts
     return await Promise.all(
@@ -70,10 +67,12 @@ export const listPosts = query({
 export const createPost = mutation({
   args: {
     content: v.string(),
-    images: v.array(v.object({
-      storageId: v.id("_storage"),
-      alt: v.string(),
-    })),
+    images: v.array(
+      v.object({
+        storageId: v.id("_storage"),
+        alt: v.string(),
+      })
+    ),
     location: v.object({
       latitude: v.number(),
       longitude: v.number(),
@@ -93,4 +92,3 @@ export const createPost = mutation({
     return post;
   },
 });
-

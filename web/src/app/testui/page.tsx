@@ -14,6 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { WeatherWidget } from "@/components/bento/widgets/weather";
 import NewsWidget from "@/components/bento/widgets/news/news";
 import { Github } from "@/components/bento/widgets/socials/github";
@@ -26,6 +28,8 @@ import { Badge } from "@/components/ui/badge";
 import { ChatUi } from "@/components/chat";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Linkedin } from "lucide-react";
+import Link from "next/link";
 
 const routes = [
   {
@@ -45,6 +49,8 @@ const routes = [
 export default function Page() {
   const [expandedChat, setExpandedChat] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const posts = useQuery(api.functions.posts.listPosts, { limit: 5 });
+
   return (
     <div className="w-screen h-screen relative">
       <Sheet
@@ -184,8 +190,12 @@ export default function Page() {
               )}
             </div>
             <div className="bento-card p-4 overflow-hidden row-span-3 col-span-1 row-start-2 col-start-11 animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]">
-              <div className="w-full h-full flex items-center justify-center">
-                <Github />
+              <div className="w-full h-full flex flex-col items-center justify-between">
+                <Link href="https://github.com/akashngb/dhacks12">
+                  <Github className="w-10 h-10" />
+                </Link>
+                <Linkedin />
+                <Devpost className="w-10 h-10" />
               </div>
             </div>
 
