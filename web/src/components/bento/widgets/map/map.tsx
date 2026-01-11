@@ -48,7 +48,7 @@ async function fetchPredictions(
   eventType: string
 ): Promise<PredictionLocation[]> {
   try {
-    const response = await fetch("http://akashs-macbook-air:5006/predict", {
+    const response = await fetch("/api/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

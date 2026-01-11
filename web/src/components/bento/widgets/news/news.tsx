@@ -37,9 +37,7 @@ export default function NewsWidget(props: NewsWidgetProps) {
   const news = useQuery<NewsData>({
     queryKey: ["news"],
     queryFn: async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_NEWS_SERVER}/news`
-      );
+      const response = await fetch("/api/news");
       if (!response.ok) {
         throw new Error("Failed to fetch news");
       }
@@ -114,7 +112,7 @@ export default function NewsWidget(props: NewsWidgetProps) {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <img
-                src={`${process.env.NEXT_PUBLIC_NEWS_SERVER}/${article.image}`}
+                src={`/api/news/${article.image}`}
                 alt={article.headline}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
