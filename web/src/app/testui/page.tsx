@@ -7,6 +7,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+<<<<<<< HEAD
 import {
   Dialog,
   DialogContent,
@@ -16,7 +17,17 @@ import {
 import { WeatherWidget } from "@/components/bento/widgets/weather";
 import NewsWidget from "@/components/bento/widgets/news/news";
 import { Github } from "@/components/bento/widgets/socials/github";
+=======
+import Link from "next/link";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { WeatherWidget } from "@/components/bento/widgets/weather";
+import NewsWidget from "@/components/bento/widgets/news/news";
+import { Github } from "@/components/bento/widgets/socials/github";
+import { Linkedin } from "@/components/bento/widgets/socials/linkedin";
+import { useState } from "react";
+>>>>>>> 45e7137cec3bb53ba8e105d9428bb7270db4182e
 import ExpandedWeather from "@/components/bento/widgets/weather/ExpandedWeather";
+import Devpost from "@/components/bento/widgets/socials/devpost";
 import ExpandedNews from "@/components/bento/widgets/news/ExpandedNews";
 import ExpandedEmpty from "@/components/bento/widgets/ExpandedEmpty";
 import BackIcon from "@/components/bento/widgets/map/backIcon";
