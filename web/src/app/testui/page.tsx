@@ -7,13 +7,15 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { WeatherWidget } from "@/components/bento/widgets/weather";
 import NewsWidget from "@/components/bento/widgets/news/news";
 import { Github } from "@/components/bento/widgets/socials/github";
-import {Linkedin} from "@/components/bento/widgets/socials/linkedin";
+import { Linkedin } from "@/components/bento/widgets/socials/linkedin";
 import { useState } from "react";
 import ExpandedWeather from "@/components/bento/widgets/weather/ExpandedWeather";
+import Devpost from "@/components/bento/widgets/socials/devpost";
 import ExpandedNews from "@/components/bento/widgets/news/ExpandedNews";
 import ExpandedEmpty from "@/components/bento/widgets/ExpandedEmpty";
 import ExpandedChat from "@/components/bento/widgets/ExpandedChat";
@@ -99,24 +101,36 @@ export default function Page() {
                         </p>
                       </div>
                     </div>
-                    <Badge variant="outline">
-                      {route.duration}
-                    </Badge>
+                    <Badge variant="outline">{route.duration}</Badge>
                   </div>
                 ))}
               </div>
             </div>
-            <div
-              className="bento-card p-4 overflow-hidden row-span-3 col-span-1 row-start-2 col-start-11 animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]"
-              onClick={() => setExpandedCard("news")}
-            >
-              <div className="w-full h-full flex items-center justify-center">
-                <Github />
-                
+            <div className="bento-card p-4 overflow-hidden row-span-3 col-span-1 row-start-2 col-start-11 animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]">
+              <div className="flex flex-col justify-between items-center h-full w-full">
+                <Link
+                  href="https://github.com/akashngb/dhacks12"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="w-8 h-8 text-black" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin className="w-8 h-8" />
+                </Link>
+                <Link
+                  href="https://deltahacks-12.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Devpost className="w-8 h-8" />
+                </Link>
               </div>
             </div>
-            
-                
 
             <div
               className="bento-card p-4 overflow-hidden row-span-2 col-span-4 row-start-2 col-start-12 animate-slide-up fill-mode-[both] [animation-delay:0.3s] cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]"
@@ -131,9 +145,7 @@ export default function Page() {
               onClick={() => setExpandedCard("news")}
             >
             </div> */}
-            <div className="row-span-3 col-span-6 row-start-5 col-start-6 cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]">
-
-            </div>
+            <div className="row-span-3 col-span-6 row-start-5 col-start-6 cursor-pointer bg-[rgba(247,241,241,0.59)] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)]"></div>
             <div className="row-span-2 col-span-4 row-start-6 col-start-2">
               <NewsWidget />
               <NewsWidget />
