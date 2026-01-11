@@ -4,7 +4,12 @@ import { cn } from "@/lib/utils";
 
 export default function MapBox({ className }: { className?: string }) {
   return (
-    <div className={cn("w-full h-full rounded-3xl overflow-hidden relative min-h-0", className)}>
+    <div
+      className={cn(
+        "w-full h-full overflow-hidden relative min-h-0",
+        className
+      )}
+    >
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         initialViewState={{
@@ -14,7 +19,7 @@ export default function MapBox({ className }: { className?: string }) {
         }}
         style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/treewhacksun/cmduvtt02010c01s2bkskew1z"
-        scrollZoom={false}
+        scrollZoom={true}
       >
         <Marker
           longitude={-79.3832}
