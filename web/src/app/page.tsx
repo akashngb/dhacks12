@@ -3,10 +3,11 @@ import { WeatherWidget } from "@/components/bento/widgets/weather";
 import MapBox from "@/components/bento/widgets/map/map";
 import NewsWidget from "@/components/bento/widgets/news/news";
 import { useState } from "react";
-import ExpandedWeather from "../components/bento/widgets/ExpandedWeather";
-import ExpandedNews from "../components/bento/widgets/ExpandedNews";
-import ExpandedMap from "../components/bento/widgets/ExpandedMap";
+import ExpandedWeather from "../components/bento/widgets/weather/ExpandedWeather";
+import ExpandedNews from "../components/bento/widgets/news/ExpandedNews";
+import ExpandedMap from "../components/bento/widgets/map/ExpandedMap";
 import ExpandedEmpty from "../components/bento/widgets/ExpandedEmpty";
+import ExpandedChat from "../components/bento/widgets/chat/ExpandedChat";
 import {
   Carousel,
   CarouselContent,
@@ -29,16 +30,19 @@ export default function Home() {
         <div className="row-span-4 col-span-4 row-start-2 col-start-2">
           <WeatherWidget className="w-full h-full" />
         </div>
+
+        <div
+          onClick={() => setExpandedCard("card3")}
+          className="bento-card p-4 rounded-2xl overflow-hidden row-span-3 col-span-3 row-start-2 col-start-9 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer"
+        >
+          <p>Events (what should i do today)</p>
+        </div>
         <div
           onClick={() => setExpandedCard("news")}
           className="bento-card p-4 rounded-2xl overflow-hidden row-span-3 col-span-3 row-start-2 col-start-6 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.1s] cursor-pointer"
         >
           <NewsWidget expanded={false} />
         </div>
-        <div
-          onClick={() => setExpandedCard("card3")}
-          className="bento-card p-4 rounded-2xl overflow-hidden row-span-3 col-span-3 row-start-2 col-start-9 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.2s] cursor-pointer"
-        ></div>
         <div className="bento-card p-4 rounded-2xl row-span-2 col-span-4 row-start-2 col-start-12 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.3s] min-h-0 w-full h-full flex flex-col relative items-center justify-center">
           <Carousel className="w-full h-full relative">
             <CarouselContent className="h-full flex mt-10">
@@ -61,7 +65,9 @@ export default function Home() {
         <div
           onClick={() => setExpandedCard("card5")}
           className="bento-card p-4 rounded-2xl overflow-hidden row-span-2 col-span-4 row-start-6 col-start-2 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.4s] cursor-pointer"
-        ></div>
+        >
+          <p> Gemini </p>
+        </div>
         <div
           onClick={() => setExpandedCard("map")}
           className="bento-card p-4 rounded-2xl row-span-3 col-span-6 row-start-5 col-start-6 bg-[#F8F4E3] animate-slide-up fill-mode-[both] [animation-delay:0.5s] overflow-hidden cursor-pointer"
@@ -101,10 +107,7 @@ export default function Home() {
               />
             )}
             {expandedCard === "card5" && (
-              <ExpandedEmpty
-                onClose={() => setExpandedCard(null)}
-                title="Card 5"
-              />
+              <ExpandedChat onClose={() => setExpandedCard(null)} />
             )}
             {expandedCard === "posts" && (
               <ExpandedEmpty
