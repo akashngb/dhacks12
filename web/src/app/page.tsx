@@ -7,6 +7,7 @@ import ExpandedWeather from "../components/bento/widgets/ExpandedWeather";
 import ExpandedNews from "../components/bento/widgets/ExpandedNews";
 import ExpandedMap from "../components/bento/widgets/ExpandedMap";
 import ExpandedEmpty from "../components/bento/widgets/ExpandedEmpty";
+import ExpandedChat from "../components/bento/widgets/ExpandedChat";
 import {
   Carousel,
   CarouselContent,
@@ -14,17 +15,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Home() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   return (
     <div className="w-screen h-screen overflow-hidden">
-      {expandedCard && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={() => setExpandedCard(null)}
-        />
-      )}
       <div className="grid gap-6 p-4 grid-rows-8 grid-cols-16 h-full">
         <div className="row-span-4 col-span-4 row-start-2 col-start-2">
           <WeatherWidget className="w-full h-full" />
@@ -76,45 +79,19 @@ export default function Home() {
         </div>
       </div>
 
-      {expandedCard && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full h-full max-w-6xl max-h-[90vh] overflow-auto relative p-8">
-            <button
-              onClick={() => setExpandedCard(null)}
-              className="absolute top-4 right-4 text-2xl font-bold text-gray-600 hover:text-black"
-            >
-              ✕
-            </button>
-            {expandedCard === "weather" && (
-              <ExpandedWeather onClose={() => setExpandedCard(null)} />
-            )}
-            {expandedCard === "news" && (
-              <ExpandedNews onClose={() => setExpandedCard(null)} />
-            )}
-            {expandedCard === "map" && (
-              <ExpandedMap onClose={() => setExpandedCard(null)} />
-            )}
-            {expandedCard === "card3" && (
-              <ExpandedEmpty
-                onClose={() => setExpandedCard(null)}
-                title="Card 3"
-              />
-            )}
-            {expandedCard === "card5" && (
-              <ExpandedEmpty
-                onClose={() => setExpandedCard(null)}
-                title="Card 5"
-              />
-            )}
-            {expandedCard === "posts" && (
-              <ExpandedEmpty
-                onClose={() => setExpandedCard(null)}
-                title="posts"
-              />
-            )}
-          </div>
-        </div>
-      )}
+      <Dialog
+        open={!!expandedCard}
+        onOpenChange={(open) => !open && setExpandedCard(null)}
+      >
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          {expandedCard === "weather" && <ExpandedWeather />}
+          {expandedCard === "news" && <ExpandedNews />}
+          {expandedCard === "map" && <ExpandedMap />}
+          {expandedCard === "card3" && <ExpandedEmpty title="Card 3" />}
+          {expandedCard === "card5" && <ExpandedChat />}
+          {expandedCard === "posts" && <ExpandedEmpty title="posts" />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
