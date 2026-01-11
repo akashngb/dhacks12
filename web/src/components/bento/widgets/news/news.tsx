@@ -26,7 +26,11 @@ type NewsData = {
   articles: Article[];
 };
 
-export default function NewsWidget() {
+type NewsWidgetProps = {
+  reverse: boolean;
+};
+
+export default function NewsWidget(props: NewsWidgetProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -77,7 +81,9 @@ export default function NewsWidget() {
   }
 
   const newsData = news.data;
-  const articles = newsData?.articles || [];
+  const articles = props.reverse
+    ? newsData?.articles?.slice().reverse() || []
+    : newsData?.articles || [];
 
   if (articles.length === 0) {
     return (

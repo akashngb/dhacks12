@@ -238,8 +238,8 @@ export default function Page() {
 
             {/* Added p-3 here for border spacing */}
             <div className="row-span-4 col-span-4 row-start-4 col-start-12 flex flex-col p-3 transition-transform duration-150 hover:scale-[1.02] overflow-hidden rounded-2xl min-h-0 min-w-0 h-full w-full bg-[rgba(247,241,241,0.59)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.4px] border border-[rgba(247,241,241,0.19)] gap-4">
-              <NewsWidget />
-              <NewsWidget />
+              <NewsWidget reverse={false} />
+              <NewsWidget reverse={true} />
             </div>
           </div>
 
