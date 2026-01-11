@@ -22,7 +22,7 @@ import ExpandedChat from "../components/bento/widgets/ExpandedChat";
 export default function Home() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className="w-screen h-screen overflow-hidden bg-background">
       <div className="grid gap-6 p-4 grid-rows-8 grid-cols-16 h-full">
         <div
           className="row-span-4 col-span-4 row-start-2 col-start-2 cursor-pointer"

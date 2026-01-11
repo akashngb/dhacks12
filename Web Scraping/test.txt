@@ -1,0 +1,300 @@
+"""
+Toronto News Scraper - Python 3.14 Compatible Version
+Automated news collection for crime, fires, accidents, and severe weather
+"""
+
+import requests
+import json
+import csv
+from datetime import datetime
+import time
+import re
+from typing import List, Dict
+import logging
+import xml.etree.ElementTree as ET
+
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+
+class TorontoNewsScraper:
+    def __init__(self):
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        self.keywords = [
+            'crime', 'shooting', 'stabbing', 'robbery', 'assault', 'murder',
+            'fire', 'blaze', 'arson',
+            'accident', 'collision', 'crash', 'pedestrian struck',
+            'weather', 'storm', 'snow', 'ice', 'flood', 'tornado', 'warning'
+        ]
+        
+    def parse_rss_feed(self, url: str) -> List[Dict]:
+        """Parse RSS feed using native XML parser"""
+        try:
+            response = requests.get(url, headers=self.headers, timeout=10)
+            response.raise_for_status()
+            
+            root = ET.fromstring(response.content)
+            items = []
+            
+            # Handle both RSS 2.0 and Atom feeds
+            namespace = {'atom': 'http://www.w3.org/2005/Atom'}
+            
+            # Try RSS 2.0 format first
+            for item in root.findall('.//item'):
+                entry = {}
+                
+                title_elem = item.find('title')
+                entry['title'] = title_elem.text if title_elem is not None else ''
+                
+                desc_elem = item.find('description')
+                entry['description'] = desc_elem.text if desc_elem is not None else ''
+                
+                link_elem = item.find('link')
+                entry['link'] = link_elem.text if link_elem is not None else ''
+                
+                pub_elem = item.find('pubDate')
+                entry['published'] = pub_elem.text if pub_elem is not None else ''
+                
+                items.append(entry)
+            
+            # Try Atom format if no RSS items found
+            if not items:
+                for entry_elem in root.findall('.//{http://www.w3.org/2005/Atom}entry'):
+                    entry = {}
+                    
+                    title_elem = entry_elem.find('{http://www.w3.org/2005/Atom}title')
+                    entry['title'] = title_elem.text if title_elem is not None else ''
+                    
+                    summary_elem = entry_elem.find('{http://www.w3.org/2005/Atom}summary')
+                    entry['description'] = summary_elem.text if summary_elem is not None else ''
+                    
+                    link_elem = entry_elem.find('{http://www.w3.org/2005/Atom}link')
+                    entry['link'] = link_elem.get('href', '') if link_elem is not None else ''
+                    
+                    pub_elem = entry_elem.find('{http://www.w3.org/2005/Atom}published')
+                    entry['published'] = pub_elem.text if pub_elem is not None else ''
+                    
+                    items.append(entry)
+            
+            return items
+            
+        except Exception as e:
+            logger.error(f"Error parsing RSS feed {url}: {e}")
+            return []
+    
+    def categorize_article(self, title: str, description: str = "") -> str:
+        """Categorize article based on keywords"""
+        text = (title + " " + description).lower()
+        
+        if any(word in text for word in ['shooting', 'stabbing', 'robbery', 'assault', 'murder', 'crime', 'arrest']):
+            return 'crime'
+        elif any(word in text for word in ['fire', 'blaze', 'arson', 'flames']):
+            return 'fire'
+        elif any(word in text for word in ['accident', 'collision', 'crash', 'struck']):
+            return 'accident'
+        elif any(word in text for word in ['storm', 'weather', 'snow', 'ice', 'flood', 'tornado', 'warning']):
+            return 'weather'
+        elif any(word in text for word in self.keywords):
+            return 'general_alert'
+        return 'other'
+    
+    def is_relevant(self, title: str, description: str = "") -> bool:
+        """Check if article is relevant to our keywords"""
+        text = (title + " " + description).lower()
+        return any(keyword in text for keyword in self.keywords)
+    
+    def scrape_cp24_rss(self) -> List[Dict]:
+        """Scrape CP24 RSS feed"""
+        articles = []
+        try:
+            feed_url = "https://www.cp24.com/feed"
+            entries = self.parse_rss_feed(feed_url)
+            
+            for entry in entries[:20]:
+                title = entry.get('title', '')
+                description = entry.get('description', '')
+                
+                if self.is_relevant(title, description):
+                    articles.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'source': 'CP24',
+                        'title': title,
+                        'description': description,
+                        'url': entry.get('link', ''),
+                        'category': self.categorize_article(title, description),
+                        'published': entry.get('published', '')
+                    })
+            
+            logger.info(f"CP24: Found {len(articles)} relevant articles")
+        except Exception as e:
+            logger.error(f"Error scraping CP24: {e}")
+        
+        return articles
+    
+    def scrape_cbc_toronto_rss(self) -> List[Dict]:
+        """Scrape CBC Toronto RSS feed"""
+        articles = []
+        try:
+            feed_url = "https://www.cbc.ca/cmlink/rss-topstories-toronto"
+            entries = self.parse_rss_feed(feed_url)
+            
+            for entry in entries[:20]:
+                title = entry.get('title', '')
+                description = entry.get('description', '')
+                
+                if self.is_relevant(title, description):
+                    articles.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'source': 'CBC Toronto',
+                        'title': title,
+                        'description': description,
+                        'url': entry.get('link', ''),
+                        'category': self.categorize_article(title, description),
+                        'published': entry.get('published', '')
+                    })
+            
+            logger.info(f"CBC Toronto: Found {len(articles)} relevant articles")
+        except Exception as e:
+            logger.error(f"Error scraping CBC Toronto: {e}")
+        
+        return articles
+    
+    def scrape_citynews_rss(self) -> List[Dict]:
+        """Scrape CityNews Toronto RSS feed"""
+        articles = []
+        try:
+            feed_url = "https://toronto.citynews.ca/feed/"
+            entries = self.parse_rss_feed(feed_url)
+            
+            for entry in entries[:20]:
+                title = entry.get('title', '')
+                description = entry.get('description', '')
+                
+                if self.is_relevant(title, description):
+                    articles.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'source': 'CityNews Toronto',
+                        'title': title,
+                        'description': description,
+                        'url': entry.get('link', ''),
+                        'category': self.categorize_article(title, description),
+                        'published': entry.get('published', '')
+                    })
+            
+            logger.info(f"CityNews: Found {len(articles)} relevant articles")
+        except Exception as e:
+            logger.error(f"Error scraping CityNews: {e}")
+        
+        return articles
+    
+    def scrape_global_news_rss(self) -> List[Dict]:
+        """Scrape Global News Toronto RSS feed"""
+        articles = []
+        try:
+            feed_url = "https://globalnews.ca/toronto/feed/"
+            entries = self.parse_rss_feed(feed_url)
+            
+            for entry in entries[:20]:
+                title = entry.get('title', '')
+                description = entry.get('description', '')
+                
+                if self.is_relevant(title, description):
+                    articles.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'source': 'Global News Toronto',
+                        'title': title,
+                        'description': description,
+                        'url': entry.get('link', ''),
+                        'category': self.categorize_article(title, description),
+                        'published': entry.get('published', '')
+                    })
+            
+            logger.info(f"Global News: Found {len(articles)} relevant articles")
+        except Exception as e:
+            logger.error(f"Error scraping Global News: {e}")
+        
+        return articles
+    
+    def scrape_all_sources(self) -> List[Dict]:
+        """Scrape all news sources"""
+        all_articles = []
+        
+        all_articles.extend(self.scrape_cp24_rss())
+        time.sleep(1)
+        
+        all_articles.extend(self.scrape_cbc_toronto_rss())
+        time.sleep(1)
+        
+        all_articles.extend(self.scrape_citynews_rss())
+        time.sleep(1)
+        
+        all_articles.extend(self.scrape_global_news_rss())
+        
+        # Remove duplicates
+        unique_articles = self.remove_duplicates(all_articles)
+        
+        logger.info(f"Total relevant articles: {len(unique_articles)}")
+        return unique_articles
+    
+    def remove_duplicates(self, articles: List[Dict]) -> List[Dict]:
+        """Remove duplicate articles based on title similarity"""
+        seen_titles = set()
+        unique = []
+        
+        for article in articles:
+            title_normalized = re.sub(r'\W+', '', article['title'].lower())
+            if title_normalized not in seen_titles:
+                seen_titles.add(title_normalized)
+                unique.append(article)
+        
+        return unique
+    
+    def save_to_csv(self, articles: List[Dict], filename: str = "toronto_news.csv"):
+        """Save articles to CSV file"""
+        if not articles:
+            logger.warning("No articles to save")
+            return
+        
+        fieldnames = ['timestamp', 'source', 'category', 'title', 'description', 'url', 'published']
+        
+        with open(filename, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(articles)
+        
+        logger.info(f"Saved {len(articles)} articles to {filename}")
+    
+    def save_to_json(self, articles: List[Dict], filename: str = "toronto_news.json"):
+        """Save articles to JSON file"""
+        if not articles:
+            logger.warning("No articles to save")
+            return
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(articles, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"Saved {len(articles)} articles to {filename}")
+
+
+def main():
+    """Main function to run the scraper"""
+    scraper = TorontoNewsScraper()
+    
+    logger.info("Starting Toronto news scrape...")
+    articles = scraper.scrape_all_sources()
+    
+    # Save to both formats
+    scraper.save_to_csv(articles, f"toronto_news_{datetime.now().strftime('%Y%m%d_%H%M')}.csv")
+    scraper.save_to_json(articles, f"toronto_news_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
+    
+    logger.info("Scraping complete!")
+
+
+if __name__ == "__main__":
+    main()

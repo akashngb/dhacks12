@@ -3,7 +3,9 @@ import { v1 } from "@googlemaps/places";
 const { PlacesClient } = v1;
 import { env } from "@/env";
 import { z } from "zod";
-import { google } from "@googlemaps/places/build/protos/protos";
+import { google as googlePlaces } from "@googlemaps/places/build/protos/protos";
+import { Client as GoogleMapsClient } from "@googlemaps/google-maps-services-js";
+import { tool } from "ai";
 
 const locationFilterSchema = z.object({
   latitude: z.number(),
@@ -17,6 +19,15 @@ const rankPreferenceSchema = z.enum([
   "POPULARITY",
 ]);
 
+const priceLevelSchema = z.enum([
+  "PRICE_LEVEL_UNSPECIFIED",
+  "PRICE_LEVEL_FREE",
+  "PRICE_LEVEL_INEXPENSIVE",
+  "PRICE_LEVEL_MODERATE",
+  "PRICE_LEVEL_EXPENSIVE",
+  "PRICE_LEVEL_VERY_EXPENSIVE",
+]);
+
 export const searchNearbyFilterSchema = z.object({
   location: locationFilterSchema,
   rankPreference: rankPreferenceSchema,
@@ -26,7 +37,13 @@ export const searchNearbyFilterSchema = z.object({
 export type LocationFilter = z.infer<typeof locationFilterSchema>;
 export type SearchNearbyFilter = z.infer<typeof searchNearbyFilterSchema>;
 
+export const textSearchPlacesOptionsSchema = z.object({
+  location: locationFilterSchema.optional(),
+  type: z.string().optional(),
+  priceLevels: z.array(priceLevelSchema).optional(),
+});
 
+export type TextSearchPlacesOptions = z.infer<typeof textSearchPlacesOptionsSchema>;
 
 export type CleanedPlace = {
   name: string;
@@ -79,7 +96,7 @@ const getClient = () => {
   return client;
 }
 
-const cleanPlace = (place: google.maps.places.v1.IPlace): CleanedPlace => {
+const cleanPlace = (place: googlePlaces.maps.places.v1.IPlace): CleanedPlace => {
   const obj = {
     name: place.name!,
     id: place.id!,
@@ -167,20 +184,25 @@ export async function searchNearby(filter: SearchNearbyFilter): Promise<CleanedP
   return response[0]?.places?.filter((place) => !!place.id && !!place.name).map((place) => cleanPlace(place)).filter(Boolean) ?? [];
 }
 
-export async function textSearchPlaces(query: string, location: LocationFilter, type?: string): Promise<CleanedPlace[]> {
+export async function textSearchPlaces(query: string, options: TextSearchPlacesOptions): Promise<CleanedPlace[]> {
   const client = getClient();
   const response = await client.searchText({
     textQuery: query,
-    includedType: type ?? null,
-    locationBias: {
-      circle: {
-        center: {
-          latitude: location.latitude,
-          longitude: location.longitude,
-        },
-        radius: location.radius,
+    includedType: options.type ?? null,
+    ...(options.location ? {
+      locationBias: {
+        circle: {
+          center: {
+            latitude: options.location.latitude,
+            longitude: options.location.longitude,
+          },
+          radius: options.location.radius,
+        }
       }
-    }
+    } : {}),
+    ...(options.priceLevels ? {
+      priceLevels: options.priceLevels.map((level) => googlePlaces.maps.places.v1.PriceLevel[level]),
+    } : {}),
   })
   return response[0]?.places?.filter((place) => !!place.id && !!place.name).map((place) => cleanPlace(place)).filter(Boolean) ?? [];
 }
@@ -199,4 +221,12 @@ export async function getPlacePhotos(placeId: string) {
     const photoResponse = await client.getPhotoMedia({ name: photo.name });
     return photoResponse[0]?.photoUri ?? null;
   }).filter(Boolean))
+}
+
+export async function addressToLatLng(address: string) {
+  const client = new GoogleMapsClient()
+  const response = await client.geocode({
+    params: { address, region: "ca", key: env.GCLOUD_API_KEY },
+  })
+  return response.data.results[0]?.geometry
 }
