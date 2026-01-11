@@ -1,0 +1,1033 @@
+{
+  "places": [
+    {
+      "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M",
+      "id": "ChIJTel9dGCAhYARQGwrTfGZ07M",
+      "types": [
+        "greek_restaurant",
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "nationalPhoneNumber": "(415) 981-0983",
+      "internationalPhoneNumber": "+1 415-981-0983",
+      "formattedAddress": "200 Jackson St, San Francisco, CA 94111, USA",
+      "addressComponents": [
+        {
+          "longText": "200",
+          "shortText": "200",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Jackson Street",
+          "shortText": "Jackson St",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Northern Waterfront",
+          "shortText": "Northern Waterfront",
+          "types": [
+            "neighborhood",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "San Francisco",
+          "shortText": "SF",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "San Francisco County",
+          "shortText": "San Francisco County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "California",
+          "shortText": "CA",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "United States",
+          "shortText": "US",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "94111",
+          "shortText": "94111",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "1806",
+          "shortText": "1806",
+          "types": [
+            "postal_code_suffix"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "plusCode": {
+        "globalCode": "849VQJW2+R3",
+        "compoundCode": "QJW2+R3 Northern Waterfront, San Francisco, CA, USA"
+      },
+      "location": {
+        "latitude": 37.7970323,
+        "longitude": -122.3997559
+      },
+      "viewport": {
+        "low": {
+          "latitude": 37.7956246697085,
+          "longitude": -122.40099548029147
+        },
+        "high": {
+          "latitude": 37.798322630291494,
+          "longitude": -122.39829751970849
+        }
+      },
+      "rating": 4.7,
+      "googleMapsUri": "https://maps.google.com/?cid=12957869814535908416&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA",
+      "websiteUri": "https://kokkari.com/",
+      "regularOpeningHours": {
+        "openNow": false,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 14,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 14,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 14,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 14,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 14,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 22,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 22,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Tuesday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Wednesday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Thursday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Friday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Saturday: 5:00 – 10:00 PM",
+          "Sunday: 5:00 – 10:00 PM"
+        ],
+        "nextOpenTime": "2026-01-11T01:00:00Z"
+      },
+      "utcOffsetMinutes": -480,
+      "adrFormatAddress": "\u003cspan class=\"street-address\"\u003e200 Jackson St\u003c/span\u003e, \u003cspan class=\"locality\"\u003eSan Francisco\u003c/span\u003e, \u003cspan class=\"region\"\u003eCA\u003c/span\u003e \u003cspan class=\"postal-code\"\u003e94111-1806\u003c/span\u003e, \u003cspan class=\"country-name\"\u003eUSA\u003c/span\u003e",
+      "businessStatus": "OPERATIONAL",
+      "priceLevel": "PRICE_LEVEL_VERY_EXPENSIVE",
+      "userRatingCount": 3380,
+      "iconMaskBaseUri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "iconBackgroundColor": "#FF9E67",
+      "displayName": {
+        "text": "Kokkari Estiatorio",
+        "languageCode": "en"
+      },
+      "primaryTypeDisplayName": {
+        "text": "Greek Restaurant",
+        "languageCode": "en-US"
+      },
+      "takeout": true,
+      "delivery": true,
+      "dineIn": true,
+      "reservable": true,
+      "servesBreakfast": false,
+      "servesLunch": true,
+      "servesDinner": true,
+      "servesBeer": true,
+      "servesWine": true,
+      "servesBrunch": true,
+      "currentOpeningHours": {
+        "openNow": false,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 11
+              }
+            },
+            "close": {
+              "day": 0,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 11
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 12
+              }
+            },
+            "close": {
+              "day": 1,
+              "hour": 14,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 12
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 12
+              }
+            },
+            "close": {
+              "day": 1,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 12
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 13
+              }
+            },
+            "close": {
+              "day": 2,
+              "hour": 14,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 13
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 13
+              }
+            },
+            "close": {
+              "day": 2,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 13
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 14
+              }
+            },
+            "close": {
+              "day": 3,
+              "hour": 14,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 14
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 14
+              }
+            },
+            "close": {
+              "day": 3,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 14
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 15
+              }
+            },
+            "close": {
+              "day": 4,
+              "hour": 14,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 15
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 15
+              }
+            },
+            "close": {
+              "day": 4,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 15
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 11,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 16
+              }
+            },
+            "close": {
+              "day": 5,
+              "hour": 14,
+              "minute": 30,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 16
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 16
+              }
+            },
+            "close": {
+              "day": 5,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 16
+              }
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 17,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 10
+              }
+            },
+            "close": {
+              "day": 6,
+              "hour": 22,
+              "minute": 0,
+              "date": {
+                "year": 2026,
+                "month": 1,
+                "day": 10
+              }
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Tuesday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Wednesday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Thursday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Friday: 11:30 AM – 2:30 PM, 5:00 – 10:00 PM",
+          "Saturday: 5:00 – 10:00 PM",
+          "Sunday: 5:00 – 10:00 PM"
+        ],
+        "nextOpenTime": "2026-01-11T01:00:00Z"
+      },
+      "primaryType": "greek_restaurant",
+      "shortFormattedAddress": "200 Jackson St, San Francisco",
+      "editorialSummary": {
+        "text": "Taverna-inspired cuisine served in a candlelit, wood-beamed dining room that attracts a chic crowd.",
+        "languageCode": "en"
+      },
+      "reviews": [
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/reviews/Ci9DQUlRQUNvZENodHljRjlvT2xVMk9HcEhVbEo2UjNsVU5DMUxaSGxYVTFGb1pHYxAB",
+          "relativePublishTimeDescription": "2 weeks ago",
+          "rating": 5,
+          "text": {
+            "text": "Kokkari Estiatorio has been a favorite of mine for over 20 years, and they never disappoint—whether it’s lunch, dinner, or a private event. This visit was for a private holiday luncheon, and everything was wonderful from start to finish. My go-to lunch favorites are the branzino and the lamb, both consistently excellent. Kokkari continues to deliver an exceptional experience every time. This place is in my top three SF restaurant recommendations.",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "Kokkari Estiatorio has been a favorite of mine for over 20 years, and they never disappoint—whether it’s lunch, dinner, or a private event. This visit was for a private holiday luncheon, and everything was wonderful from start to finish. My go-to lunch favorites are the branzino and the lamb, both consistently excellent. Kokkari continues to deliver an exceptional experience every time. This place is in my top three SF restaurant recommendations.",
+            "languageCode": "en"
+          },
+          "authorAttribution": {
+            "displayName": "Shannon",
+            "uri": "https://www.google.com/maps/contrib/108523237524170092711/reviews",
+            "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjW9IeZUxRQdW_I_7GM7dr3B5aCPMyx1eXsa8umP7DyK1fuywsQP_Q=s128-c0x00000000-cc-rp-mo-ba4"
+          },
+          "publishTime": "2025-12-22T05:48:36.042025814Z",
+          "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2xVMk9HcEhVbEo2UjNsVU5DMUxaSGxYVTFGb1pHYxAB&d=17924085&t=1",
+          "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2xVMk9HcEhVbEo2UjNsVU5DMUxaSGxYVTFGb1pHYxAB!2m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/reviews/Ci9DQUlRQUNvZENodHljRjlvT2xoTVNXeE9WbWh3TVVOMVowOUhaa1JGZW01aU5uYxAB",
+          "relativePublishTimeDescription": "2 weeks ago",
+          "rating": 4,
+          "text": {
+            "text": "GET THE PITA it’s thick and chewy and buttery!\n\nCozy upscale dining. We sat at the bar. Bar seat is better than table seat. Better lighting and you can sit closer together.\n\nWaiter said bar seats you can get by calling to reserve two days in advance. Table seats you can get by calling two weeks in advance. Unless you’re a party of one - we had a person walk in and sit next to us\n\nFried cheese - waiter drizzled lemon juice and it sizzled nicely. But it cooled too quickly and became boring to eat\n\nBabaganoush - good but not the best in the city. I liked the pickled veggies that came with it though\n\nTzin spritz - ok, too much volume. I liked eating the berries. Waiter called them British boba 😂\n\nHibiscus mocktail - tart and delicious!\n\nSquash - forgettable, did not taste the pistachio butter\n\nOctopus - ok, did not come with tail\n\nChicken - yummy and enough to feed two people\n\nWe over ordered and could not finish the chicken. The waiter packed the chicken for us\n\nFood not worth the $200 total, you are  paying for the ambience. Nice place to dress up for. Would be nice to just get drinks here also. There’s a fireplace with real fire and the overall volume is not too loud, you don’t have to strain to hear.",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "GET THE PITA it’s thick and chewy and buttery!\n\nCozy upscale dining. We sat at the bar. Bar seat is better than table seat. Better lighting and you can sit closer together.\n\nWaiter said bar seats you can get by calling to reserve two days in advance. Table seats you can get by calling two weeks in advance. Unless you’re a party of one - we had a person walk in and sit next to us\n\nFried cheese - waiter drizzled lemon juice and it sizzled nicely. But it cooled too quickly and became boring to eat\n\nBabaganoush - good but not the best in the city. I liked the pickled veggies that came with it though\n\nTzin spritz - ok, too much volume. I liked eating the berries. Waiter called them British boba 😂\n\nHibiscus mocktail - tart and delicious!\n\nSquash - forgettable, did not taste the pistachio butter\n\nOctopus - ok, did not come with tail\n\nChicken - yummy and enough to feed two people\n\nWe over ordered and could not finish the chicken. The waiter packed the chicken for us\n\nFood not worth the $200 total, you are  paying for the ambience. Nice place to dress up for. Would be nice to just get drinks here also. There’s a fireplace with real fire and the overall volume is not too loud, you don’t have to strain to hear.",
+            "languageCode": "en"
+          },
+          "authorAttribution": {
+            "displayName": "L",
+            "uri": "https://www.google.com/maps/contrib/100409559711944936320/reviews",
+            "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocKEYUHEzEFuCzQ9YbBbFssW5d_mcVWA05jPJjFm9Wj8Xkt-SjM=s128-c0x00000000-cc-rp-mo-ba5"
+          },
+          "publishTime": "2025-12-23T15:16:55.346952489Z",
+          "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2xoTVNXeE9WbWh3TVVOMVowOUhaa1JGZW01aU5uYxAB&d=17924085&t=1",
+          "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2xoTVNXeE9WbWh3TVVOMVowOUhaa1JGZW01aU5uYxAB!2m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/reviews/Ci9DQUlRQUNvZENodHljRjlvT2xBeFRGbFhaRGx4Y0ZOQlRGUkVOVFJLTjNkaU1HYxAB",
+          "relativePublishTimeDescription": "2 weeks ago",
+          "rating": 5,
+          "text": {
+            "text": "Kokkari now lives in my dreams. One of the best places I’ve been in San Francisco. Everything from the atmosphere to the service is 10/10. The food is obviously the star—have not had such authentic Greek food since being in Greece. The pita is being talked about every day in our house and so is the baklava. The zucchini cakes are also living rent free in my head and the citrus salad with the dates?! So good. Kokkari is a must try in SF. Can’t wait to come back as soon as possible.",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "Kokkari now lives in my dreams. One of the best places I’ve been in San Francisco. Everything from the atmosphere to the service is 10/10. The food is obviously the star—have not had such authentic Greek food since being in Greece. The pita is being talked about every day in our house and so is the baklava. The zucchini cakes are also living rent free in my head and the citrus salad with the dates?! So good. Kokkari is a must try in SF. Can’t wait to come back as soon as possible.",
+            "languageCode": "en"
+          },
+          "authorAttribution": {
+            "displayName": "Katy",
+            "uri": "https://www.google.com/maps/contrib/104572384962421129201/reviews",
+            "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVQjt4NCSXUu73gchSyZtgAmQTm-2dGks12MR0UHC44XKqD2AQ=s128-c0x00000000-cc-rp-mo-ba2"
+          },
+          "publishTime": "2025-12-27T05:49:49.755078567Z",
+          "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2xBeFRGbFhaRGx4Y0ZOQlRGUkVOVFJLTjNkaU1HYxAB&d=17924085&t=1",
+          "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2xBeFRGbFhaRGx4Y0ZOQlRGUkVOVFJLTjNkaU1HYxAB!2m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/reviews/Ci9DQUlRQUNvZENodHljRjlvT204NFNWQnRkR1ZmWmtaZk1WWmZhMFJEU1VzdFNXYxAB",
+          "relativePublishTimeDescription": "a month ago",
+          "rating": 4,
+          "text": {
+            "text": "I last remembered eating at Kokkari before the pandemic. This time around was for a work dinner, and it felt like nothing had changed. The interior and the food make up the same consistent experience.\nThey sat us at the table in front of the fireplace, which gave it a cozy feel. The lounge chairs, though comfy, are a tight fit and make it a little hard to get in and out though.\n\n$12.75 Melitzanosalata, Taramosalata, Tzatziki, Favosalata, Skordalia, Tirokafteri:\ngood! a mixed plate of fresh dips with pita is always a good idea\n\n$14.75 Kolokithokeftethes - crispy zucchini cakes with cucumber & mint-yogurt dressing:\ngood! crispy with the sweet zucchini flavor\n\n$19.25 Saganaki - pan fried Kefalotyri cheese with lemon & oregano:\ngood! what's not to like about  fried cheese?\n\n$20.75 Roasted Prawns - chili-garlic roasted wild gulf prawns:\ngreat! very flavorful large prawns\n\n$20.75 Octapodaki tou Yiorgou - grilled octopus with lemon, oregano, olive oil:\ngood! octopus is always delicious, but a tad too salty, could be a little more tender\n\n$35 Moussaka - traditional baked casserole of spiced lamb & beef, eggplant, potato & yogurt bechamel:\nokay! a creamy layered baked potato dish\n\n$45.50 Ippoglossa - Pacific halibut filet pan roasted with fava puree, garlic & chili broccoli rabe & olive tapenade:\nokay! could be a little more tender\n\n$69 Arnisia Paidakia - grilled lamb chops with lemon-oregano vinaigrette & Kokkari potatoes:\ngreat! beautiful lamb chops, though the best part is the vinaigrette\n\n$13.50 Galaktoboureko - semolina custard in filo with pistachio ice cream\ngood! delicious balance of crunchy filo and creamy insides\n\n$13.75 Kataifi Ekmek - shredded filo with semolina custard, creme fraiche & pistachio\ngood! beautiful layered cake on a crunchy kataifi crust\n\n$11.50 Loukoumades - traditional Greek doughnuts with honey, cinnamon & walnuts:\nokay! can't complain about sugary doughnuts\n\nIt was great to try a lot of the menu in a large group, but I think if I were to come back, I might only really be interested in the lamb chops and maybe an appetizer. Too bad it's one of the most expensive things on the menu.",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "I last remembered eating at Kokkari before the pandemic. This time around was for a work dinner, and it felt like nothing had changed. The interior and the food make up the same consistent experience.\nThey sat us at the table in front of the fireplace, which gave it a cozy feel. The lounge chairs, though comfy, are a tight fit and make it a little hard to get in and out though.\n\n$12.75 Melitzanosalata, Taramosalata, Tzatziki, Favosalata, Skordalia, Tirokafteri:\ngood! a mixed plate of fresh dips with pita is always a good idea\n\n$14.75 Kolokithokeftethes - crispy zucchini cakes with cucumber & mint-yogurt dressing:\ngood! crispy with the sweet zucchini flavor\n\n$19.25 Saganaki - pan fried Kefalotyri cheese with lemon & oregano:\ngood! what's not to like about  fried cheese?\n\n$20.75 Roasted Prawns - chili-garlic roasted wild gulf prawns:\ngreat! very flavorful large prawns\n\n$20.75 Octapodaki tou Yiorgou - grilled octopus with lemon, oregano, olive oil:\ngood! octopus is always delicious, but a tad too salty, could be a little more tender\n\n$35 Moussaka - traditional baked casserole of spiced lamb & beef, eggplant, potato & yogurt bechamel:\nokay! a creamy layered baked potato dish\n\n$45.50 Ippoglossa - Pacific halibut filet pan roasted with fava puree, garlic & chili broccoli rabe & olive tapenade:\nokay! could be a little more tender\n\n$69 Arnisia Paidakia - grilled lamb chops with lemon-oregano vinaigrette & Kokkari potatoes:\ngreat! beautiful lamb chops, though the best part is the vinaigrette\n\n$13.50 Galaktoboureko - semolina custard in filo with pistachio ice cream\ngood! delicious balance of crunchy filo and creamy insides\n\n$13.75 Kataifi Ekmek - shredded filo with semolina custard, creme fraiche & pistachio\ngood! beautiful layered cake on a crunchy kataifi crust\n\n$11.50 Loukoumades - traditional Greek doughnuts with honey, cinnamon & walnuts:\nokay! can't complain about sugary doughnuts\n\nIt was great to try a lot of the menu in a large group, but I think if I were to come back, I might only really be interested in the lamb chops and maybe an appetizer. Too bad it's one of the most expensive things on the menu.",
+            "languageCode": "en"
+          },
+          "authorAttribution": {
+            "displayName": "Joy",
+            "uri": "https://www.google.com/maps/contrib/104830388093091509737/reviews",
+            "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXFs3yaJ8VOU5r-N_g0TipI65Tg0hJaXgFUVwzP2g_zD1fQkGWL=s128-c0x00000000-cc-rp-mo-ba6"
+          },
+          "publishTime": "2025-12-09T12:26:19.912009795Z",
+          "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT204NFNWQnRkR1ZmWmtaZk1WWmZhMFJEU1VzdFNXYxAB&d=17924085&t=1",
+          "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT204NFNWQnRkR1ZmWmtaZk1WWmZhMFJEU1VzdFNXYxAB!2m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/reviews/Ci9DQUlRQUNvZENodHljRjlvT2twSWJWWkRhRWQzUVVwWVZuUk1UVEExTjJOZmVrRRAB",
+          "relativePublishTimeDescription": "3 months ago",
+          "rating": 5,
+          "text": {
+            "text": "Kokkari Estiatorio – A Taste of Greece in San Francisco\n\nI had a wonderful lunch at Kokkari Estiatorio, and it easily lived up to its stellar reputation. The ambiance strikes that perfect balance between elegant and inviting — rustic Mediterranean charm with a touch of modern sophistication.\n\nThe Greek salad was an absolute standout — fresh, vibrant, and beautifully balanced. Every bite tasted like it had just come from a garden, with crisp cucumbers, juicy tomatoes, and creamy feta that tied it all together.\n\nFor the main course, I ordered the lamb, and it was exceptional. Tender, perfectly seasoned, and full of rich, savory flavor — truly one of the best lamb dishes I’ve had in the city.\n\nTo finish, the Greek yogurt with honey made for a perfect dessert — light, creamy, and just sweet enough. It’s a generous portion, so I’d recommend sharing it (if you’re willing to part with a few bites!).\n\nOverall, Kokkari Estiatorio delivers a meal that feels both comforting and refined — a must-visit for anyone craving authentic Greek cuisine with a California touch. Highly recommended! 🇬🇷",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "Kokkari Estiatorio – A Taste of Greece in San Francisco\n\nI had a wonderful lunch at Kokkari Estiatorio, and it easily lived up to its stellar reputation. The ambiance strikes that perfect balance between elegant and inviting — rustic Mediterranean charm with a touch of modern sophistication.\n\nThe Greek salad was an absolute standout — fresh, vibrant, and beautifully balanced. Every bite tasted like it had just come from a garden, with crisp cucumbers, juicy tomatoes, and creamy feta that tied it all together.\n\nFor the main course, I ordered the lamb, and it was exceptional. Tender, perfectly seasoned, and full of rich, savory flavor — truly one of the best lamb dishes I’ve had in the city.\n\nTo finish, the Greek yogurt with honey made for a perfect dessert — light, creamy, and just sweet enough. It’s a generous portion, so I’d recommend sharing it (if you’re willing to part with a few bites!).\n\nOverall, Kokkari Estiatorio delivers a meal that feels both comforting and refined — a must-visit for anyone craving authentic Greek cuisine with a California touch. Highly recommended! 🇬🇷",
+            "languageCode": "en"
+          },
+          "authorAttribution": {
+            "displayName": "Juan Martin Maglione",
+            "uri": "https://www.google.com/maps/contrib/111275070713427883422/reviews",
+            "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjV6vntRaUxg1zciFAtgUxWi1zjvSZKs5sT4QZybUdrRZjQMHkT6=s128-c0x00000000-cc-rp-mo-ba5"
+          },
+          "publishTime": "2025-10-09T23:36:03.401877813Z",
+          "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2twSWJWWkRhRWQzUVVwWVZuUk1UVEExTjJOZmVrRRAB&d=17924085&t=1",
+          "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2twSWJWWkRhRWQzUVVwWVZuUk1UVEExTjJOZmVrRRAB!2m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        }
+      ],
+      "photos": [
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN38w7T2FM1PmUjNjZ81kuF75CP9wUSyYngjkX6zkaRURlxfL_eK6-IhhWLo3zTCJ169dz68E5RbZqswwJVqQjYTsjVICsD4137YuV1guv6BKuMXAOpd6JvBoB2eRUy2qUac7XcJjm_QhAv74o6LKc1mx1ShXXI2iXDoJ9xiU4OVC3pUSQ_iPvTHDEbTYV2zNN1lb-qNN_nsJ1GeBv5PfTsOf6gEsdTMCDA6EMEWInmtk7W1GFBFYJjj7Om1AXXuh8t5tM9hpe4cB6f-pV-4QqKDMK-GMaT5AU117HeDk4U65U74fn3m3s0FAUDSCBwAIlZ1PhnyTa3qFxlIFELA5vHlwxEb3U0luVMplaxppPRU7x-jAklYSmP7kBifBe07syW9fSzEqqBn2qitXbOSQbgMzH8479lADacxaOaV6uPo-rbg",
+          "widthPx": 4032,
+          "heightPx": 3024,
+          "authorAttributions": [
+            {
+              "displayName": "Guillermo Gutierrez Zetina",
+              "uri": "https://maps.google.com/maps/contrib/115649090979740479056",
+              "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocIPZdQiOy_bT1I9NRewsumt6OJZa6VKj5-PjA-fWU7lpc7tTQ=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgICRn8fF4gE&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICRn8fF4gE!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN1ELNPJJv7T8NNGhtXrEVbCUorq63qO09Q5Ywtq_6IAggPNc9TqH4uNrKrc_Rg03C-Hdk2IiACtH6YBNTdr2HkwZ3Mdfdz3zXduUpuoeD8BBw6ejO1ynQshYtBmIf4wD5m-Bmyzd7B2rDVRa5l-GPd9bGmhD5TDIPKRYneR4wGgZlZc5d81WoGUuj3JcISFh5g45ov97tXY1ymIOimzBzEB0qWszq5mBTz-O-jJBNP4f7DwBa3xJZSEWMHo_aoGapQxDkUflQHxM51O8GV0HyOCB6vKd-WAWXIQenfVRX-xV_-mc9-mXRmFOVpzZ7ZYmyAllPNuTBzvV-Mz8Lc0PQTj6XV7VCWX8HkrQhQwacAXnSGZhR4O27-CPBdhw-rFCPf4JjhjZUOPy7Tx8WWVFQzC8deJghJtV0s61G0o7HAuYoXa",
+          "widthPx": 4032,
+          "heightPx": 1960,
+          "authorAttributions": [
+            {
+              "displayName": "W L",
+              "uri": "https://maps.google.com/maps/contrib/100843101132796394246",
+              "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocLttKaz_35ShhyfFabzR8t6osb4pDY8mJmPBDgXSnh2RfCAls2S=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgID49-yF3wE&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgID49-yF3wE!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN12pQzWa6iSpzjbU-l7gFfzdIhHbII1B3SXtAL_xpT_Ymxx9C_iyNpAhbjIIbImIwFVQdHIPUJnFxQ3QVVz-ysyOgR8Zp2D5Iyc7mhh-aKrNemGM2pggZI_XvnoMwhIYupWYZ_AfYFnq9yZH0aJ6v7AWfP9n3EyJFhn4DhwMufuBVHb9uBJ0Un8i-SpUOcRglRUhmdXYqlJXGGB_3kAhMAPt6ngtuhAe1HcEQX1Z5AHHd6xushks1AoEG8sNsPdsCvT5EV9Y5XKgEB3XJYZP63Ymh43ssw31TJ2BSqwwDEDFditYf0oV2zR22opU1Q6RMh5BdIyw1_e1hXb9Ds_Nhpm4PvVFscs253AGwIUF4OJm4MBrT7gXow2ur6aIedhrAVWrXBFFtnsJo373Zlwtcv-QSMQkqQNwPTLap33-m9Z5hH09PVTVf1NzZQjJk9W",
+          "widthPx": 4080,
+          "heightPx": 3072,
+          "authorAttributions": [
+            {
+              "displayName": "Gerard Visser",
+              "uri": "https://maps.google.com/maps/contrib/117835854773569504294",
+              "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocLQrbYA0-GUr29FxU4oagnJuOrAqWHP6TQTDj7txbnB0mTRXSdx=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhAKuBLL7Jkf9fUuiMxG3U_q&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAKuBLL7Jkf9fUuiMxG3U_q!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN2BRKOY9xqiA26epW4eHsxgCtkiIAudwxVZzan5OxMB3IbaJgqK36rJC6QqVztIzD2dmEDv78gEmK1a8vRB1DejSAZrtc71HupXnfLvodL3NIpY9r_CURpW_paXR-F51V1svK4LuBGRd1jL1iqfQFGV45LZRdOVzlJWnXAxYYhxX9C2ZfaM1RSAnLPgbVTz0fuibpl3M5J76XpP1i8KPs27CGiBUp8SrEjYuAg2RSqpoFsc_rv_5plv8slAeh5JXDPARyjTEBPEaTE7HaUez4TupYPu2eCg0Y5InFcu58HiACLs6U_ubKydolyw5ivo9iLBUMy7IRivCgFcDILInwCU8ZYt4q1MU9TQ_cmHRDM3PqztHgmnjHuVYzWYFTH7SvCydDFmvkvE_UJbBhhEokpQiFF6a1eA3CO8x6a7KWgz0GSbaFuVA3beCvG6xg",
+          "widthPx": 3746,
+          "heightPx": 2809,
+          "authorAttributions": [
+            {
+              "displayName": "Yay H",
+              "uri": "https://maps.google.com/maps/contrib/104256430262783773373",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjX_p4LC9ZQhZ-ue6WmeqPt1IeTvB2LHF_yguhRguwhjCX2UZ6t5BQ=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhB43c-zB36QVvkGt5vLd2S_&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhB43c-zB36QVvkGt5vLd2S_!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN1UIgWpGvP6dprtwXsbgxsvnt9ojONttFem8506UDybv-MPShZpX1mG2H5G5mDwFdGyk_vU1CiJD8HuiIIYdqSKWiONFUUrrSv3LbvoULCMZS9Ea9sGMS1bJD-Phm17hkT33gtr8DTuzjOKBhqe_i5Tt-1nWGdazBNgHGNtlaS0_S5ylEnxIYSZBjqdP6JNtjiLRQ5uGDuB_DpMFnNrsjNLuRv9l4DkgG_-5820blq0BXGd2cAY2ScZPzHT1wzGOFt5i6oiWxy87Z66Y4ohuXhb4iT7I5sX_3LqPwNpg9OsoWbrgVHD3gLZ-2AYCpl-slb40E6ETRKs1Tpqec-MEgJlHh4oC8t2aj-YYBrRkzo5mV0Wws1TSMT2UlIyH4P4x9R-i_zS2rY7IWKeZT91kGnE-YMk4eZOexpBx0MKT8urUBWrIfIF47XFfBNZRw",
+          "widthPx": 4800,
+          "heightPx": 3600,
+          "authorAttributions": [
+            {
+              "displayName": "Yay H",
+              "uri": "https://maps.google.com/maps/contrib/104256430262783773373",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjX_p4LC9ZQhZ-ue6WmeqPt1IeTvB2LHF_yguhRguwhjCX2UZ6t5BQ=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhCsEEVSVpS4AYrrZqHd-x9i&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCsEEVSVpS4AYrrZqHd-x9i!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN0F7FWyJPezj1nLHba3_Yb37TvXwmgOaKrQHEzlil2W7GlJuDuyTZMHeZtyx6N3hAG1CT8pP-aJLlbcoI26n16xc7qDsBOgwPGyx4ithP6P5GBHFv_VoTOKJRyJ2Ef5RFPGvdqUzxwuIx07NU6pDDDrKWQvmxgXNoXnhuQbl_TGphHxfKvItcnbX7UL-_FZ-7fcxFRZtHcryAI2vXAdkrZXndyQrSIAq9GA9Q7jm5hvQvrzXDM8Ghi91vCavgX8sB9zohjJ4pLcv7wNzoM05SSOnKUIe9Wx2FeeqhBfgVrNMuiXRnuIFRBCd5k2QYVmIEeWuEqrCCBNxcVJPzG9doYK9OaGtwUIIgT2cUA2UGDtcX7vRlwvpLUccP-dCITKM6zvp5F5iWPPYNQs0ILT7m5r61MileVJ3rjd1YJgMczP3K73o6GRAjYffIkJjw",
+          "widthPx": 4080,
+          "heightPx": 3072,
+          "authorAttributions": [
+            {
+              "displayName": "Jeffrey Rissman",
+              "uri": "https://maps.google.com/maps/contrib/112798880964682582469",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVQ2hC20TbuJqYP0MKOp9B-esBch5c1nX7xbDr7BFu5f5Lgsn0Q=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhAGbyfQ2x2O1mfFR8oAA_gs&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAGbyfQ2x2O1mfFR8oAA_gs!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN0EcU-wP585DTNsWT2rIo0kAd3yY2R7wD821oo28sl5mTKVSws59I_VMuQYUKw05JoyMkTyST1tBm_uMUt3FJunIQEVtHb6imRSZb79naDMEvdPecPaHJFhxvkywG7Rc7ZLk-NPZZH3_qqnPLxNnB8ogPDzN_K9WYc-2L3kpvEOS4gcwuS5XRhLHt0HCZstu5DcnWjspM3LvFYstm-F75zaPJbHI-xvjt8gEYtfOzAHKv5NUtrgxZijPJxv2tgTKhuxal8NBgVqEacppskH5agUlRP0-SBOPGR6FXm6gupOXAcOlzOTpyg4RxXksjnJyRrdo9iYy87iToKSCcDqhfnEitGqiCUXcNt0E6ps0225DwkWUqbWwRLFphBhAH6YIvzneDixlytonnpBuJFEMcKZRkIhfAuQVySt5j7G5-QTDih4EGCi749FaCZyPO8h",
+          "widthPx": 4800,
+          "heightPx": 3600,
+          "authorAttributions": [
+            {
+              "displayName": "Oscar Rivera",
+              "uri": "https://maps.google.com/maps/contrib/116980633426967671703",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjWewangccEL-qWZZp-Jzy1aQlEQSfP2nKA21xqylBMk6j0z4Gf27g=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhDhxXHcuP8qpsBhiRsDIfaz&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhDhxXHcuP8qpsBhiRsDIfaz!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN0mvsF2AibB7bc5xckIrWVXjnzbDlPZe1ykGNLPXQUTZkbULj_FH1z_UiaDRmzpKD6GPj5gnDNgYCH5wuLLuNQY5WDr1j4xdVBtwAHD5ca9SF_0tFFPbhfNiCk4joEF7CPhfQwW0yvLIT7bLBpGO8NJyDFqIHcV0kxyOq7Wt9DzYHjDQFBQwCzRJQtw-jGPpQPVJ6u364L6e12dHrjID1il0XG8Lcg1FX6NwcCLW7WjWsiMlCK9hPBN-G8Y5OgfktjPhdcqmcm3zWP3txAZDM-4xsnMY7QeYk3BhVo0FPQewoVg5siD6Disp0RGfEjsqf1TfSNJEWf7zPYFRS0TIiA_LQd7FILEvpLoayYXa3zUPwyKxp4kvX80aNpWpKnmtB8zgV0LIhf9vfGTTHnfpMMEl6ZPh3Y02cK6id5l-w55PkkmTfBEtrEdz57_LAcP",
+          "widthPx": 3024,
+          "heightPx": 4032,
+          "authorAttributions": [
+            {
+              "displayName": "Eva Toimil",
+              "uri": "https://maps.google.com/maps/contrib/118114293206030462123",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVq7u0sgrNrwi_RVpGxYnSMrDTVsvDZCBZfUFZ8dinrTwfZf4TL=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhD_I_YzNUaTFtHAq0NFzAR7&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhD_I_YzNUaTFtHAq0NFzAR7!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN0Ds-G4SIJXdo-jlcPJn57CDw48gxA7P6E0BV-rrMbI6mZIYNBpkfsWXRHYa-QF4M7UrLKQy4DpFoYeJ3z_gzYgTcQ40Operg_y64WlcOPD-Na_YbHq2WRtPD5NmoFIsBMEXgzdn6kfFV45sla-_ooFQGUa4iZzGxoXVY5s_dba3f71DySP_3yEfcxHbWJAKXUdTHAHhtUXoq4tvH06ReNIzUsagV_4RFzKE3UIBOjNQIxuRItXATkUnGUUbjZTVsQEyZhPGuJBtJ-tXGlLxb95SCYOERIeitYkP003xu4yiKI4QkKsDkbgQDs5mhhNphNG2U9oLSR4bYu84szW-pV1pScXLqinpNntBjx8rM0BMvWzV8jkK9i98fPvqanHkXP2Q1mTtmXSXPWi-XaPlkYWncc0-75IE3nnojWmyNcU0vVDO6yqZGC20Sk7jqGr",
+          "widthPx": 3024,
+          "heightPx": 4032,
+          "authorAttributions": [
+            {
+              "displayName": "Joy",
+              "uri": "https://maps.google.com/maps/contrib/104830388093091509737",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXFs3yaJ8VOU5r-N_g0TipI65Tg0hJaXgFUVwzP2g_zD1fQkGWL=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhCdtzEwEWzy-H7-zCDSL4yX&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCdtzEwEWzy-H7-zCDSL4yX!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        },
+        {
+          "name": "places/ChIJTel9dGCAhYARQGwrTfGZ07M/photos/AcnlKN3yfU9AUbw9WKkxlatHYFyDNRcrcOd8VeVt5B7i2VZQ-5v1JqHnf0-3ufUhAzEI1tbNqM10wVzNk6kjpeQbTNmzcB_OynJjAbkLalmRzH8LVEgcV5oshWPcjgEfhx4ZO604HbENvq7DesuJen2k6ezH8W3xhCpMGRW6Py3D2aVqQy-tn-aWmVgFIXZcG-kPY3ihjrZpLt3au-sLSk7xpnmw0M0lR51QhIl-qc4FCLVedQdVEnDp8UFocMlyVzitLc1akHF_J6yvXNP2pQfrsZWzosjGN4e1Xvy5gK9O3m7TSTnHZJaIzkuGY41Inn9VmazbtgfGlfse3RQWBFlYNtD3CNbFiVQ4EHB8rQlfdXuJoBRLjdxeT2uWaJYCryEqGsdA-EQwe4ct077NnvivZBRUEBLdnKd_-_5OJ2fciLBpHr7eWt_LSSkXMCND9AsY",
+          "widthPx": 4000,
+          "heightPx": 3000,
+          "authorAttributions": [
+            {
+              "displayName": "Luna Salaver",
+              "uri": "https://maps.google.com/maps/contrib/106457481363566881588",
+              "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjWXxlqDwLsBedUhwwVNs7WeuFqXgk0vA_Qqfals4SLBADrbMC8t=s100-p-k-no-mo"
+            }
+          ],
+          "flagContentUri": "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIABIhBx1UDzyO38fO78XkmMc1Ns&hl=en-US",
+          "googleMapsUri": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhBx1UDzyO38fO78XkmMc1Ns!2e10!4m2!3m1!1s0x80858060747de94d:0xb3d399f14d2b6c40"
+        }
+      ],
+      "outdoorSeating": false,
+      "liveMusic": false,
+      "menuForChildren": false,
+      "servesCocktails": true,
+      "servesDessert": true,
+      "servesCoffee": true,
+      "goodForChildren": false,
+      "allowsDogs": false,
+      "restroom": true,
+      "goodForGroups": true,
+      "goodForWatchingSports": false,
+      "paymentOptions": {
+        "acceptsCreditCards": true,
+        "acceptsDebitCards": true,
+        "acceptsCashOnly": false,
+        "acceptsNfc": true
+      },
+      "parkingOptions": {
+        "freeStreetParking": true,
+        "paidStreetParking": true
+      },
+      "accessibilityOptions": {
+        "wheelchairAccessibleParking": true,
+        "wheelchairAccessibleEntrance": true,
+        "wheelchairAccessibleRestroom": true,
+        "wheelchairAccessibleSeating": true
+      },
+      "generativeSummary": {
+        "overview": {
+          "text": "Cozy Greek eatery featuring fresh ingredients and a wood-burning oven.",
+          "languageCode": "en-US"
+        },
+        "overviewFlagContentUri": "https://www.google.com/local/content/rap/report?postId=CiUweDgwODU4MDYwNzQ3ZGU5NGQ6MHhiM2QzOTlmMTRkMmI2YzQwMAI&d=17924085&t=12",
+        "disclosureText": {
+          "text": "Summarized with Gemini",
+          "languageCode": "en-US"
+        }
+      },
+      "addressDescriptor": {
+        "landmarks": [
+          {
+            "name": "places/ChIJKfpyiGCAhYARNyu9cCeqEbk",
+            "placeId": "ChIJKfpyiGCAhYARNyu9cCeqEbk",
+            "displayName": {
+              "text": "Safeway",
+              "languageCode": "en"
+            },
+            "types": [
+              "bakery",
+              "establishment",
+              "florist",
+              "food",
+              "grocery_or_supermarket",
+              "point_of_interest",
+              "store",
+              "supermarket"
+            ],
+            "spatialRelationship": "DOWN_THE_ROAD",
+            "straightLineDistanceMeters": 101.25681,
+            "travelDistanceMeters": 81.578354
+          },
+          {
+            "name": "places/ChIJGyo_jGCAhYARub3mWDNm8g8",
+            "placeId": "ChIJGyo_jGCAhYARub3mWDNm8g8",
+            "displayName": {
+              "text": "The Gateway vistaEast",
+              "languageCode": "en"
+            },
+            "types": [
+              "establishment",
+              "point_of_interest"
+            ],
+            "spatialRelationship": "DOWN_THE_ROAD",
+            "straightLineDistanceMeters": 95.29108,
+            "travelDistanceMeters": 15.540962
+          },
+          {
+            "name": "places/ChIJranzc2CAhYARzJF7t-osO5M",
+            "placeId": "ChIJranzc2CAhYARzJF7t-osO5M",
+            "displayName": {
+              "text": "The Gateway Theatre",
+              "languageCode": "en"
+            },
+            "types": [
+              "establishment",
+              "point_of_interest"
+            ],
+            "spatialRelationship": "DOWN_THE_ROAD",
+            "straightLineDistanceMeters": 34.728207,
+            "travelDistanceMeters": 33.81532
+          },
+          {
+            "name": "places/ChIJm33ji2CAhYARKupg8VPQTwU",
+            "placeId": "ChIJm33ji2CAhYARKupg8VPQTwU",
+            "displayName": {
+              "text": "The Gateway",
+              "languageCode": "en"
+            },
+            "types": [
+              "establishment",
+              "point_of_interest",
+              "real_estate_agency"
+            ],
+            "spatialRelationship": "DOWN_THE_ROAD",
+            "straightLineDistanceMeters": 112.311966,
+            "travelDistanceMeters": 16.01463
+          },
+          {
+            "name": "places/ChIJndMZ1l-AhYARyvIc5cEw8gM",
+            "placeId": "ChIJndMZ1l-AhYARyvIc5cEw8gM",
+            "displayName": {
+              "text": "Sydney G. Walton Square",
+              "languageCode": "en"
+            },
+            "types": [
+              "establishment",
+              "park",
+              "point_of_interest"
+            ],
+            "spatialRelationship": "DOWN_THE_ROAD",
+            "straightLineDistanceMeters": 73.24861,
+            "travelDistanceMeters": 86.84822
+          }
+        ],
+        "areas": [
+          {
+            "name": "places/ChIJLaDYzViAhYARvrqrrFvO8io",
+            "placeId": "ChIJLaDYzViAhYARvrqrrFvO8io",
+            "displayName": {
+              "text": "Northern Waterfront",
+              "languageCode": "en"
+            },
+            "containment": "WITHIN"
+          },
+          {
+            "name": "places/ChIJndMZ1l-AhYARYkdh8FNtsVU",
+            "placeId": "ChIJndMZ1l-AhYARYkdh8FNtsVU",
+            "displayName": {
+              "text": "Sydney G. Walton Square",
+              "languageCode": "en"
+            },
+            "containment": "OUTSKIRTS"
+          },
+          {
+            "name": "places/ChIJ5XNdYWCAhYARnSPD37UlTto",
+            "placeId": "ChIJ5XNdYWCAhYARnSPD37UlTto",
+            "displayName": {
+              "text": "The Gateway",
+              "languageCode": "en"
+            },
+            "containment": "OUTSKIRTS"
+          }
+        ]
+      },
+      "googleMapsLinks": {
+        "directionsUri": "https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x80858060747de94d:0xb3d399f14d2b6c40!3e0?g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA",
+        "placeUri": "https://maps.google.com/?cid=12957869814535908416&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA",
+        "writeAReviewUri": "https://www.google.com/maps/place//data=!4m3!3m2!1s0x80858060747de94d:0xb3d399f14d2b6c40!12e1?g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA",
+        "reviewsUri": "https://www.google.com/maps/place//data=!4m4!3m3!1s0x80858060747de94d:0xb3d399f14d2b6c40!9m1!1b1?g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA",
+        "photosUri": "https://www.google.com/maps/place//data=!4m3!3m2!1s0x80858060747de94d:0xb3d399f14d2b6c40!10e5?g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAEgAA"
+      },
+      "priceRange": {
+        "startPrice": {
+          "currencyCode": "USD",
+          "units": "50"
+        },
+        "endPrice": {
+          "currencyCode": "USD",
+          "units": "100"
+        }
+      },
+      "reviewSummary": {
+        "text": {
+          "text": "People say this Greek restaurant serves delicious appetizers, baked feta, branzino, and lamb dishes. They highlight the fresh ingredients, generous portions, and authentic Mediterranean flavors. They also like the cozy and romantic atmosphere, perfect for date nights.",
+          "languageCode": "en-US"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=5%401:CAIQACodChtyc19oOk5Ed05UdUNlNF9hd0E2MkN6ZU1BVUE%7CCAIQACorChtyc19oOk5Ed05UdUNlNF9hd0E2MkN6ZU1BVUESDAi_2OfEBhD44ZHwAg&d=17924085&t=8",
+        "disclosureText": {
+          "text": "Summarized with Gemini",
+          "languageCode": "en-US"
+        },
+        "reviewsUri": "https://www.google.com/maps/place//data=!4m4!3m3!1s0x80858060747de94d:0xb3d399f14d2b6c40!9m1!1b1"
+      },
+      "timeZone": {
+        "id": "America/Los_Angeles"
+      },
+      "postalAddress": {
+        "regionCode": "US",
+        "languageCode": "en-US",
+        "postalCode": "94111-1806",
+        "administrativeArea": "California",
+        "locality": "San Francisco",
+        "addressLines": [
+          "200 Jackson St"
+        ]
+      }
+    }
+  ]
+}

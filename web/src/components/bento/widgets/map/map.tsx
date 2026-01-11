@@ -1,9 +1,10 @@
 "use client";
 import Map, { Marker } from "react-map-gl/mapbox";
+import { cn } from "@/lib/utils";
 
-export default function MapBox() {
+export default function MapBox({ className }: { className?: string }) {
   return (
-    <div className="w-full h-full rounded-3xl overflow-hidden relative min-h-0">
+    <div className={cn("w-full h-full rounded-3xl overflow-hidden relative min-h-0", className)}>
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         initialViewState={{

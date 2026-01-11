@@ -133,8 +133,8 @@ export function WeatherWidget({ className }: WeatherWidgetProps) {
 
   const isDaytime = useMemo(() => {
     if (!data) return true;
-
-    const currentTime = data.current.time;
+    
+    const currentTime = new Date(); 
     const sunrise = data.daily.sunrise[0]
       ? new Date(data.daily.sunrise[0])
       : null;
