@@ -51,8 +51,9 @@ import {
   ToolOutput,
 } from "@/components/ai-elements/tool";
 import { DefaultChatTransport } from "ai";
+import type { ToolUIPart } from "ai";
 
-export default function ChatPage() {
+export default function ChatUi() {
   const [input, setInput] = useState("");
   const { messages, sendMessage, status, regenerate } = useChat({
     transport: new DefaultChatTransport({
@@ -105,6 +106,29 @@ export default function ChatPage() {
                     </Sources>
                   )}
                 {message.parts.map((part, i) => {
+                  // Handle tool types (tool-call, tool-result, etc.)
+                  if (part.type.startsWith("tool-")) {
+                    const toolPart = part as unknown as ToolUIPart;
+                    return (
+                      <Tool key={`${message.id}-${i}`} defaultOpen>
+                        <ToolHeader
+                          title={toolPart.title}
+                          type={toolPart.type}
+                          state={toolPart.state}
+                        />
+                        <ToolContent>
+                          {toolPart.input !== undefined && <ToolInput input={toolPart.input} />}
+                          {(toolPart.output !== undefined || toolPart.errorText !== undefined) && (
+                            <ToolOutput
+                              output={toolPart.output}
+                              errorText={toolPart.errorText}
+                            />
+                          )}
+                        </ToolContent>
+                      </Tool>
+                    );
+                  }
+
                   switch (part.type) {
                     case "text":
                       return (
@@ -151,25 +175,6 @@ export default function ChatPage() {
                           <ReasoningTrigger />
                           <ReasoningContent>{part.text}</ReasoningContent>
                         </Reasoning>
-                      );
-                    case "tool":
-                      return (
-                        <Tool key={`${message.id}-${i}`} defaultOpen>
-                          <ToolHeader
-                            title={part.toolName}
-                            type={part.type}
-                            state={part.state}
-                          />
-                          <ToolContent>
-                            {part.input && <ToolInput input={part.input} />}
-                            {(part.output || part.errorText) && (
-                              <ToolOutput
-                                output={part.output}
-                                errorText={part.errorText}
-                              />
-                            )}
-                          </ToolContent>
-                        </Tool>
                       );
                     default:
                       return null;

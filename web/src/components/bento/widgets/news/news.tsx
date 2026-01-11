@@ -88,45 +88,43 @@ export default function NewsWidget() {
   }
 
   return (
-    <div className="row-span-4 col-span-4 row-start-4 col-start-12 w-full h-full">
-      <Carousel
-        setApi={setApi}
-        className="w-full h-full"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <CarouselContent className="h-full">
-          {articles.map((article: Article, index: number) => (
-            <CarouselItem key={index} className="h-full">
-              <Card
-                className="w-full h-full rounded-3xl overflow-hidden relative p-0 cursor-pointer group"
-                onClick={() => {
-                  window.open(article.url, "_blank");
-                }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <img
-                  src={`http://localhost:6767/${article.image}`}
-                  alt={article.headline}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {/* Headline that fades in on hover */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <h3 className="text-white font-semibold text-lg line-clamp-3">
-                    {article.headline}
-                  </h3>
-                  <p className="text-white/80 text-sm mt-1">{article.source}</p>
-                </div>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+    <Carousel
+      setApi={setApi}
+      className="w-full h-full overflow-hidden"
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+    >
+      <CarouselContent className="h-full ml-0">
+        {articles.map((article: Article, index: number) => (
+          <CarouselItem key={index} className="h-full pl-0">
+            <Card
+              className="w-full h-full rounded-3xl overflow-hidden relative p-0 cursor-pointer group"
+              onClick={() => {
+                window.open(article.url, "_blank");
+              }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <img
+                src={`http://localhost:6767/${article.image}`}
+                alt={article.headline}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Headline that fades in on hover */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <h3 className="text-white font-semibold text-lg line-clamp-3">
+                  {article.headline}
+                </h3>
+                <p className="text-white/80 text-sm mt-1">{article.source}</p>
+              </div>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 }
