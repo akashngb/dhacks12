@@ -1,0 +1,23 @@
+{
+  "0": "Collision-Other",
+  "1": "Collision-Injury-Pedestrian",
+  "2": "Collision-Injury-Vehicle",
+  "3": "Collision-NoInjury-Pedestrian",
+  "4": "Collision-NoInjury-Vehicle",
+  "5": "Crime-Other",
+  "6": "Crime-Assault-Simple",
+  "7": "Crime-Assault-Weapon-Aggravated",
+  "8": "Crime-Assault-BodilyHarm",
+  "9": "Crime-Assault-PeaceOfficer",
+  "10": "Crime-AutoTheft",
+  "11": "Crime-BreakAndEnter",
+  "12": "Crime-Robbery-Weapon",
+  "13": "Crime-Robbery-Business",
+  "14": "Crime-Robbery-Other",
+  "15": "Crime-Theft-Other",
+  "16": "Fire-Other",
+  "17": "Fire-Residential",
+  "18": "Fire-Vehicle",
+  "19": "Fire-Outdoor-Rubbish",
+  "20": "Fire-Alarm-Commercial"
+}
