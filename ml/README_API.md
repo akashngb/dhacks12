@@ -7,7 +7,7 @@
 python ml_api.py
 ```
 
-2. The API will be available at: `http://localhost:5000`
+2. The API will be available at: `http://localhost:5001`
 
 ## Endpoints
 
