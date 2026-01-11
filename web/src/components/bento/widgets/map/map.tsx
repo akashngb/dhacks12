@@ -1,7 +1,9 @@
 "use client";
 import Map, { Marker, Popup } from "react-map-gl/mapbox";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
+import { predictionFallback } from "./fallback";
 
 interface PredictionLocation {
   latitude: number;
@@ -59,8 +61,7 @@ async function fetchPredictions(eventType: string): Promise<PredictionLocation[]
     
     const data = await response.json();
     if (data.success && data.output?.top_20_locations) {
-      // Return top 5 locations to avoid cluttering the map
-      return data.output.top_20_locations.slice(0, 5);
+      return data.output.top_20_locations;
     }
     return [];
   } catch (error) {
@@ -85,7 +86,7 @@ export default function MapBox({ className }: { className?: string }) {
       const allMarkers: CrimeMarker[] = [];
       
       for (const eventType of EVENT_TYPES) {
-        const predictions = await fetchPredictions(eventType);
+        const predictions = await fetchPredictions(eventType) ?? predictionFallback;
         predictions.forEach((pred, index) => {
           const transformed = transformCoordinates(pred.latitude, pred.longitude);
           allMarkers.push({
@@ -98,7 +99,7 @@ export default function MapBox({ className }: { className?: string }) {
           });
         });
       }
-      
+      console.log(allMarkers);
       if (!cancelled) {
         setMarkers(allMarkers);
         setLoading(false);
@@ -158,29 +159,21 @@ export default function MapBox({ className }: { className?: string }) {
         scrollZoom={true}
         onClick={() => setSelectedMarker(null)}
       >
+        {/* Debug marker at Toronto City Hall - should always be visible */}
+        <Marker longitude={-79.3832} latitude={43.6532} color="blue" />
+        
         {markers.map((marker) => (
           <Marker
             key={marker.id}
             longitude={marker.longitude}
             latitude={marker.latitude}
             anchor="bottom"
+            color={getMarkerColor(marker.eventType)}
             onClick={(e) => {
               e.originalEvent.stopPropagation();
               setSelectedMarker(marker);
             }}
-          >
-            <div
-              className="cursor-pointer transition-transform hover:scale-110"
-              style={{
-                width: 24,
-                height: 24,
-                borderRadius: "50%",
-                backgroundColor: getMarkerColor(marker.eventType),
-                border: "3px solid white",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-              }}
-            />
-          </Marker>
+          />
         ))}
 
         {selectedMarker && (
