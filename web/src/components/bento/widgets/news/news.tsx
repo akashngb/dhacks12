@@ -33,7 +33,7 @@ export default function NewsWidget() {
   const news = useQuery<NewsData>({
     queryKey: ["news"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:6767/news");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_NEWS_SERVER}/news`);
       if (!response.ok) {
         throw new Error("Failed to fetch news");
       }
@@ -108,7 +108,7 @@ export default function NewsWidget() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <img
-                src={`http://localhost:6767/${article.image}`}
+                src={`${process.env.NEXT_PUBLIC_NEWS_SERVER}/${article.image}`}
                 alt={article.headline}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />

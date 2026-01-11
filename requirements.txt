@@ -5,3 +5,4 @@ tensorflow>=2.13
 matplotlib>=3.7
 seaborn>=0.12
 joblib>=1.2
+flask-cors

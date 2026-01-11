@@ -1,453 +1,283 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 import pickle
+from datetime import datetime
 import warnings
+from flask_cors import CORS
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend requests
+CORS(app)
 
-# ============================================
-# LOAD MODELS AND SCALERS ON STARTUP
-# ============================================
+@app.before_request
+def log_request():
+    print(f"Incoming request: {request.method} {request.path}")
+    print(f"Headers: {dict(request.headers)}")
+    print(f"Data: {request.get_data()}")
 
-print("Loading models and scalers...")
+print("Loading models and metadata...")
 
 # Load models
-binary_model = keras.models.load_model('binary_classification_model.keras')
-multiclass_model = keras.models.load_model('multiclass_classification_model.keras')
-regression_model = keras.models.load_model('regression_model.keras')
+model1 = keras.models.load_model('model_datetime_location_to_subtype.keras')
+model2 = keras.models.load_model('model_datetime_subtype_to_location.keras')
+model3 = keras.models.load_model('model_location_subtype_to_datetime.keras')
 
 # Load scalers
-with open('scaler_binary.pkl', 'rb') as f:
-    scaler_binary = pickle.load(f)
+with open('scaler_datetime_location_to_subtype.pkl', 'rb') as f:
+    scaler1 = pickle.load(f)
+with open('scaler_datetime_subtype_to_location.pkl', 'rb') as f:
+    scaler2 = pickle.load(f)
+with open('scaler_location_subtype_to_datetime.pkl', 'rb') as f:
+    scaler3 = pickle.load(f)
 
-with open('scaler_multiclass.pkl', 'rb') as f:
-    scaler_multiclass = pickle.load(f)
+# Load metadata
+with open('inverse_models_metadata.pkl', 'rb') as f:
+    metadata = pickle.load(f)
 
-with open('scaler_regression.pkl', 'rb') as f:
-    scaler_regression = pickle.load(f)
+subtype_labels = metadata['subtype_labels']
+subtype_to_int = metadata['subtype_to_int']
+neighbourhood_coords = metadata['neighbourhood_coords']  # ADD THIS LINE
 
-# Load feature columns
-with open('feature_columns.pkl', 'rb') as f:
-    feature_columns = pickle.load(f)
-
-# Subtype labels
-subtype_labels = {
-    0: 'Collision-Other', 1: 'Collision-Injury-Pedestrian', 
-    2: 'Collision-Injury-Vehicle', 3: 'Collision-NoInjury-Pedestrian', 
-    4: 'Collision-NoInjury-Vehicle', 5: 'Crime-Other', 
-    6: 'Crime-Assault-Simple', 7: 'Crime-Assault-Weapon-Aggravated', 
-    8: 'Crime-Assault-BodilyHarm', 9: 'Crime-Assault-PeaceOfficer', 
-    10: 'Crime-AutoTheft', 11: 'Crime-BreakAndEnter', 
-    12: 'Crime-Robbery-Weapon', 13: 'Crime-Robbery-Business', 
-    14: 'Crime-Robbery-Other', 15: 'Crime-Theft-Other', 
-    16: 'Fire-Other', 17: 'Fire-Residential', 
-    18: 'Fire-Vehicle', 19: 'Fire-Outdoor-Rubbish', 
-    20: 'Fire-Alarm-Commercial'
-}
+subtype_labels = metadata['subtype_labels']
+subtype_to_int = metadata['subtype_to_int']
 
 print("✓ Models loaded successfully!")
 
-# ============================================
-# HELPER FUNCTIONS
-# ============================================
-
-def create_feature_array(data, model_type='binary'):
-    """
-    Create feature array from input data with cyclical encoding
-    """
-    hour = data.get('hour', 12)
-    day_of_week = data.get('day_of_week', 0)
-    month = data.get('month', 1)
+def unix_to_datetime_features(unix_timestamp):
+    """Convert Unix timestamp to datetime features"""
+    dt = datetime.fromtimestamp(unix_timestamp)
     
-    # Cyclical features
-    hour_sin = np.sin(2 * np.pi * hour / 24)
-    hour_cos = np.cos(2 * np.pi * hour / 24)
-    day_of_week_sin = np.sin(2 * np.pi * day_of_week / 7)
-    day_of_week_cos = np.cos(2 * np.pi * day_of_week / 7)
-    month_sin = np.sin(2 * np.pi * month / 12)
-    month_cos = np.cos(2 * np.pi * month / 12)
+    year = dt.year
+    month = dt.month
+    day = dt.day
+    hour = dt.hour
+    day_of_week = dt.weekday()
+    is_weekend = 1 if day_of_week >= 5 else 0
+    is_night = 1 if hour < 6 or hour >= 22 else 0
+    quarter = (month - 1) // 3 + 1
     
-    if model_type in ['binary', 'multiclass']:
-        # Hourly prediction features
-        features = np.array([[
-            data.get('hour', 12),
-            data.get('day_of_week', 0),
-            data.get('is_weekend', 0),
-            data.get('is_night', 0),
-            data.get('quarter', 1),
-            data.get('season_encoded', 0),
-            data.get('lat', 0.0),
-            data.get('lon', 0.0),
-            data.get('lat_zone', 0),
-            data.get('lon_zone', 0),
-            data.get('neighbourhood', 0),
-            data.get('neighbourhood_incident_count', 0),
-            hour_sin,
-            hour_cos,
-            day_of_week_sin,
-            day_of_week_cos,
-            month_sin,
-            month_cos,
-            data.get('events_this_hour', 0)
-        ]])
-    else:  # regression (daily prediction)
-        features = np.array([[
-            data.get('day_of_week', 0),
-            data.get('is_weekend', 0),
-            data.get('quarter', 1),
-            data.get('season_encoded', 0),
-            data.get('lat', 0.0),
-            data.get('lon', 0.0),
-            data.get('lat_zone', 0),
-            data.get('lon_zone', 0),
-            data.get('neighbourhood', 0),
-            data.get('neighbourhood_incident_count', 0),
-            month_sin,
-            month_cos,
-            day_of_week_sin,
-            day_of_week_cos
-        ]])
+    if month in [12, 1, 2]:
+        season = 0
+    elif month in [3, 4, 5]:
+        season = 1
+    elif month in [6, 7, 8]:
+        season = 2
+    else:
+        season = 3
     
-    return features
-
-
-# ============================================
-# API ENDPOINTS
-# ============================================
+    return {
+        'year': year, 'month': month, 'day': day, 'hour': hour,
+        'day_of_week': day_of_week, 'is_weekend': is_weekend,
+        'is_night': is_night, 'quarter': quarter, 'season_encoded': season
+    }
 
 @app.route('/', methods=['GET'])
 def home():
-    """API info endpoint"""
     return jsonify({
-        'message': 'City Safety ML API',
-        'version': '1.0',
-        'endpoints': {
-            '/predict/binary': 'Binary classification - Will an event occur?',
-            '/predict/multiclass': 'Multi-class - What type of event?',
-            '/predict/regression': 'Regression - How many events today?',
-            '/predict/all': 'Get predictions from all three models'
-        },
+        'message': 'City Safety Inverse Prediction API',
+        'version': '2.0',
         'status': 'ready'
     })
 
-
-@app.route('/predict/binary', methods=['POST'])
-def predict_binary():
-    """
-    Binary classification: Will an event occur in this neighbourhood in the next hour?
-    
-    Expected JSON input:
-    {
-        "neighbourhood": 137,
-        "hour": 21,
-        "day_of_week": 5,
-        "is_weekend": 1,
-        "lat": -0.439,
-        "lon": -2.011,
-        "season_encoded": 3,
-        "month": 2,
-        "is_night": 0,
-        "quarter": 1,
-        "lat_zone": 7,
-        "lon_zone": 1,
-        "neighbourhood_incident_count": 36559,
-        "events_this_hour": 0
-    }
-    """
-    try:
-        data = request.get_json()
-        
-        # Create features
-        features = create_feature_array(data, 'binary')
-        features_scaled = scaler_binary.transform(features)
-        
-        # Predict
-        probability = float(binary_model.predict(features_scaled, verbose=0)[0][0])
-        prediction = probability > 0.5
-        
-        return jsonify({
-            'success': True,
-            'model': 'binary_classification',
-            'prediction': 'event_will_occur' if prediction else 'no_event_expected',
-            'probability': round(probability, 4),
-            'confidence': round(probability if prediction else (1 - probability), 4),
-            'details': {
-                'neighbourhood': data.get('neighbourhood'),
-                'hour': data.get('hour'),
-                'interpretation': f"{'High' if probability > 0.7 else 'Medium' if probability > 0.3 else 'Low'} risk of event occurring"
-            }
-        })
-    
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 400
-
-
-@app.route('/predict/multiclass', methods=['POST'])
-def predict_multiclass():
-    """
-    Multi-class classification: What TYPE of event is most likely?
-    
-    Expected JSON input: Same as binary
-    """
-    try:
-        data = request.get_json()
-        
-        # Create features
-        features = create_feature_array(data, 'multiclass')
-        features_scaled = scaler_multiclass.transform(features)
-        
-        # Predict
-        probabilities = multiclass_model.predict(features_scaled, verbose=0)[0]
-        
-        # Get top 5 predictions
-        top_5_indices = np.argsort(probabilities)[-5:][::-1]
-        top_5_predictions = [
-            {
-                'event_type': subtype_labels[int(idx)],
-                'probability': round(float(probabilities[idx]), 4),
-                'rank': rank + 1
-            }
-            for rank, idx in enumerate(top_5_indices)
-        ]
-        
-        # Most likely prediction
-        most_likely_idx = int(np.argmax(probabilities))
-        most_likely = subtype_labels[most_likely_idx]
-        most_likely_prob = float(probabilities[most_likely_idx])
-        
-        return jsonify({
-            'success': True,
-            'model': 'multiclass_classification',
-            'most_likely_event': most_likely,
-            'probability': round(most_likely_prob, 4),
-            'top_5_predictions': top_5_predictions,
-            'details': {
-                'neighbourhood': data.get('neighbourhood'),
-                'hour': data.get('hour'),
-                'total_event_types': len(subtype_labels)
-            }
-        })
-    
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 400
-
-
-@app.route('/predict/regression', methods=['POST'])
-def predict_regression():
-    """
-    Regression: How many events will occur in this area today?
-    
-    Expected JSON input:
-    {
-        "neighbourhood": 137,
-        "day_of_week": 5,
-        "is_weekend": 1,
-        "lat": -0.439,
-        "lon": -2.011,
-        "season_encoded": 3,
-        "month": 2,
-        "quarter": 1,
-        "lat_zone": 7,
-        "lon_zone": 1,
-        "neighbourhood_incident_count": 36559
-    }
-    """
-    try:
-        data = request.get_json()
-        
-        # Create features
-        features = create_feature_array(data, 'regression')
-        features_scaled = scaler_regression.transform(features)
-        
-        # Predict
-        predicted_count = float(regression_model.predict(features_scaled, verbose=0)[0][0])
-        predicted_count = max(0, predicted_count)  # Ensure non-negative
-        
-        # Risk level based on predicted count
-        if predicted_count < 5:
-            risk_level = 'low'
-        elif predicted_count < 15:
-            risk_level = 'medium'
-        else:
-            risk_level = 'high'
-        
-        return jsonify({
-            'success': True,
-            'model': 'regression',
-            'predicted_event_count': round(predicted_count, 2),
-            'rounded_count': int(round(predicted_count)),
-            'risk_level': risk_level,
-            'details': {
-                'neighbourhood': data.get('neighbourhood'),
-                'day_of_week': data.get('day_of_week'),
-                'interpretation': f"Expect approximately {int(round(predicted_count))} events today"
-            }
-        })
-    
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 400
-
-
-@app.route('/predict/all', methods=['POST'])
-def predict_all():
-    """
-    Get predictions from all three models at once
-    
-    Expected JSON input: Combined fields from all models
-    """
-    try:
-        data = request.get_json()
-        
-        # Binary prediction
-        features_bin = create_feature_array(data, 'binary')
-        features_bin_scaled = scaler_binary.transform(features_bin)
-        binary_prob = float(binary_model.predict(features_bin_scaled, verbose=0)[0][0])
-        binary_pred = binary_prob > 0.5
-        
-        # Multiclass prediction
-        features_multi = create_feature_array(data, 'multiclass')
-        features_multi_scaled = scaler_multiclass.transform(features_multi)
-        multi_probs = multiclass_model.predict(features_multi_scaled, verbose=0)[0]
-        top_3_indices = np.argsort(multi_probs)[-3:][::-1]
-        top_3 = [
-            {
-                'event_type': subtype_labels[int(idx)],
-                'probability': round(float(multi_probs[idx]), 4)
-            }
-            for idx in top_3_indices
-        ]
-        
-        # Regression prediction
-        features_reg = create_feature_array(data, 'regression')
-        features_reg_scaled = scaler_regression.transform(features_reg)
-        daily_count = float(regression_model.predict(features_reg_scaled, verbose=0)[0][0])
-        daily_count = max(0, daily_count)
-        
-        # Overall risk assessment
-        risk_score = (binary_prob * 0.4) + (min(daily_count / 20, 1.0) * 0.6)
-        if risk_score < 0.3:
-            overall_risk = 'low'
-        elif risk_score < 0.6:
-            overall_risk = 'medium'
-        else:
-            overall_risk = 'high'
-        
-        return jsonify({
-            'success': True,
-            'timestamp': data.get('timestamp', 'not_provided'),
-            'location': {
-                'neighbourhood': data.get('neighbourhood'),
-                'lat': data.get('lat'),
-                'lon': data.get('lon')
-            },
-            'binary_classification': {
-                'prediction': 'event_will_occur' if binary_pred else 'no_event_expected',
-                'probability': round(binary_prob, 4),
-                'confidence': round(binary_prob if binary_pred else (1 - binary_prob), 4)
-            },
-            'multiclass_classification': {
-                'most_likely_event': top_3[0]['event_type'],
-                'top_3_predictions': top_3
-            },
-            'regression': {
-                'predicted_daily_events': round(daily_count, 2),
-                'rounded_count': int(round(daily_count))
-            },
-            'overall_assessment': {
-                'risk_level': overall_risk,
-                'risk_score': round(risk_score, 4),
-                'recommendation': get_recommendation(overall_risk, top_3[0]['event_type'])
-            }
-        })
-    
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 400
-
-
-def get_recommendation(risk_level, event_type):
-    """Generate user-friendly recommendation"""
-    if risk_level == 'high':
-        return f"High risk area. Exercise caution. Most likely incident type: {event_type}"
-    elif risk_level == 'medium':
-        return f"Moderate risk. Stay aware of surroundings. Watch for: {event_type}"
-    else:
-        return "Low risk area. Normal precautions recommended."
-
-
-@app.route('/models/info', methods=['GET'])
-def models_info():
-    """Get information about all models"""
-    return jsonify({
-        'success': True,
-        'models': {
-            'binary_classification': {
-                'description': 'Predicts if an event will occur in the next hour',
-                'input_features': feature_columns['binary'],
-                'output': 'probability (0-1)',
-                'use_case': 'Real-time risk assessment for specific locations and times'
-            },
-            'multiclass_classification': {
-                'description': 'Predicts the type of event most likely to occur',
-                'input_features': feature_columns['multiclass'],
-                'output': 'event type with probability distribution',
-                'num_classes': len(subtype_labels),
-                'event_types': list(subtype_labels.values()),
-                'use_case': 'Understanding what kind of incidents to prepare for'
-            },
-            'regression': {
-                'description': 'Predicts the number of events expected in a day',
-                'input_features': feature_columns['regression'],
-                'output': 'count of events',
-                'use_case': 'Daily planning and resource allocation'
-            }
-        }
-    })
-
-
 @app.route('/health', methods=['GET'])
-def health_check():
-    """Health check endpoint"""
-    return jsonify({
-        'status': 'healthy',
-        'models_loaded': True,
-        'message': 'All systems operational'
-    })
+def health():
+    return jsonify({'status': 'healthy', 'models_loaded': True})
 
+@app.route('/event_types', methods=['GET'])
+def get_event_types():
+    return jsonify({'success': True, 'event_types': list(subtype_to_int.keys())})
 
-# ============================================
-# RUN SERVER
-# ============================================
+@app.route('/predict', methods=['POST', 'OPTIONS'])
+def predict():
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'}), 200
+    
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'success': False, 'error': 'No JSON data provided'}), 400
+        
+        has_datetime = 'datetime' in data
+        has_neighbourhood = 'neighbourhood' in data
+        has_event_subtype = 'event_subtype' in data
+        
+        num_inputs = sum([has_datetime, has_neighbourhood, has_event_subtype])
+        
+        if num_inputs != 2:
+            return jsonify({
+                'success': False,
+                'error': 'Must provide exactly 2 of 3 fields: datetime, neighbourhood, event_subtype'
+            }), 400
+        
+        # CASE 1: datetime + neighbourhood → event_subtype
+        if has_datetime and has_neighbourhood:
+            dt_features = unix_to_datetime_features(data['datetime'])
+            neighbourhood = data['neighbourhood']
+            
+            lat = data.get('lat', 0.0)
+            lon = data.get('lon', 0.0)
+            lat_zone = data.get('lat_zone', 0)
+            lon_zone = data.get('lon_zone', 0)
+            
+            features = np.array([[
+                dt_features['year'], dt_features['month'], dt_features['day'],
+                dt_features['hour'], dt_features['day_of_week'], dt_features['is_weekend'],
+                dt_features['is_night'], dt_features['quarter'], dt_features['season_encoded'],
+                neighbourhood, lat, lon, lat_zone, lon_zone
+            ]])
+            
+            features_scaled = scaler1.transform(features)
+            probabilities = model1.predict(features_scaled, verbose=0)[0]
+            
+            top_5_indices = np.argsort(probabilities)[-5:][::-1]
+            top_5 = [
+                {'event_type': subtype_labels[int(idx)], 
+                 'probability': round(float(probabilities[idx]), 4),
+                 'rank': rank + 1}
+                for rank, idx in enumerate(top_5_indices)
+            ]
+            
+            return jsonify({
+                'success': True,
+                'prediction_type': 'event_subtype',
+                'input': {
+                    'datetime': data['datetime'],
+                    'datetime_readable': datetime.fromtimestamp(data['datetime']).strftime('%Y-%m-%d %H:%M:%S'),
+                    'neighbourhood': neighbourhood
+                },
+                'output': {
+                    'most_likely_event': top_5[0]['event_type'],
+                    'confidence': top_5[0]['probability'],
+                    'top_5_predictions': top_5
+                }
+            })
+        
+        # CASE 2: datetime + event_subtype → location (top 20 lat/lon pairs)
+        elif has_datetime and has_event_subtype:
+            dt_features = unix_to_datetime_features(data['datetime'])
+            event_subtype_str = data['event_subtype']
+            
+            if event_subtype_str not in subtype_to_int:
+                return jsonify({
+                    'success': False,
+                    'error': f'Invalid event_subtype. Must be one of: {list(subtype_to_int.keys())}'
+                }), 400
+            
+            event_subtype_encoded = subtype_to_int[event_subtype_str]
+            
+            features = np.array([[
+                dt_features['year'], dt_features['month'], dt_features['day'],
+                dt_features['hour'], dt_features['day_of_week'], dt_features['is_weekend'],
+                dt_features['is_night'], dt_features['quarter'], dt_features['season_encoded'],
+                event_subtype_encoded
+            ]])
+            
+            features_scaled = scaler2.transform(features)
+            probabilities = model2.predict(features_scaled, verbose=0)[0]
+            
+            # Get top 20 neighbourhoods
+            top_20_indices = np.argsort(probabilities)[-20:][::-1]
+            top_20_locations = []
+            
+            for rank, idx in enumerate(top_20_indices):
+                neighbourhood_id = int(idx)
+                coords = neighbourhood_coords.get(neighbourhood_id, {'LAT_R': 0.0, 'LON_R': 0.0})
+                
+                top_20_locations.append({
+                    'rank': rank + 1,
+                    'neighbourhood': neighbourhood_id,
+                    'latitude': float(coords['LAT_R']),
+                    'longitude': float(coords['LON_R']),
+                    'coordinates': [float(coords['LAT_R']), float(coords['LON_R'])],
+                    'probability': round(float(probabilities[idx]), 4)
+                })
+            
+            return jsonify({
+                'success': True,
+                'prediction_type': 'location',
+                'input': {
+                    'datetime': data['datetime'],
+                    'datetime_readable': datetime.fromtimestamp(data['datetime']).strftime('%Y-%m-%d %H:%M:%S'),
+                    'event_subtype': event_subtype_str
+                },
+                'output': {
+                    'most_likely_location': {
+                        'latitude': top_20_locations[0]['latitude'],
+                        'longitude': top_20_locations[0]['longitude'],
+                        'coordinates': top_20_locations[0]['coordinates'],
+                        'neighbourhood': top_20_locations[0]['neighbourhood'],
+                        'confidence': top_20_locations[0]['probability']
+                    },
+                    'top_20_locations': top_20_locations
+                }
+            })
+        
+        # CASE 3: neighbourhood + event_subtype → datetime (hour)
+        elif has_neighbourhood and has_event_subtype:
+            neighbourhood = data['neighbourhood']
+            event_subtype_str = data['event_subtype']
+            
+            if event_subtype_str not in subtype_to_int:
+                return jsonify({
+                    'success': False,
+                    'error': f'Invalid event_subtype. Must be one of: {list(subtype_to_int.keys())}'
+                }), 400
+            
+            event_subtype_encoded = subtype_to_int[event_subtype_str]
+            
+            lat = data.get('lat', 0.0)
+            lon = data.get('lon', 0.0)
+            lat_zone = data.get('lat_zone', 0)
+            lon_zone = data.get('lon_zone', 0)
+            
+            features = np.array([[
+                neighbourhood, lat, lon, lat_zone, lon_zone, event_subtype_encoded
+            ]])
+            
+            features_scaled = scaler3.transform(features)
+            probabilities = model3.predict(features_scaled, verbose=0)[0]
+            
+            top_5_indices = np.argsort(probabilities)[-5:][::-1]
+            top_5 = [
+                {'hour': int(idx),
+                 'time_range': f"{int(idx):02d}:00 - {int(idx):02d}:59",
+                 'probability': round(float(probabilities[idx]), 4),
+                 'rank': rank + 1}
+                for rank, idx in enumerate(top_5_indices)
+            ]
+            
+            return jsonify({
+                'success': True,
+                'prediction_type': 'datetime',
+                'input': {
+                    'neighbourhood': neighbourhood,
+                    'event_subtype': event_subtype_str
+                },
+                'output': {
+                    'most_likely_hour': top_5[0]['hour'],
+                    'most_likely_time_range': top_5[0]['time_range'],
+                    'confidence': top_5[0]['probability'],
+                    'top_5_hours': top_5
+                }
+            })
+        
+        else:
+            return jsonify({'success': False, 'error': 'Invalid combination'}), 400
+    
+    except Exception as e:
+        import traceback
+        print("ERROR:", str(e))
+        print(traceback.format_exc())
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
     print("\n" + "="*60)
-    print("🚀 City Safety ML API Server")
+    print("🚀 City Safety Inverse Prediction API")
     print("="*60)
-    print("\nServer starting on http://localhost:5000")
-    print("\nAvailable endpoints:")
-    print("  GET  /              - API info")
-    print("  GET  /health        - Health check")
-    print("  GET  /models/info   - Model information")
-    print("  POST /predict/binary     - Binary classification")
-    print("  POST /predict/multiclass - Multi-class classification")
-    print("  POST /predict/regression - Regression")
-    print("  POST /predict/all        - All predictions at once")
-    print("\n" + "="*60 + "\n")
+    print("\nServer starting on http://localhost:5006")
+    print("="*60 + "\n")
     
-    app.run(debug=True, host='0.0.0.0', port=5067)
+    app.run(debug=True, host='0.0.0.0', port=5006, threaded=True)

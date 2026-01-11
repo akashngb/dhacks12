@@ -5,6 +5,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthHeader } from "@/components/auth-header";
+import Authenticated from "./authenticated";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <Providers>
+        <Authenticated>
         <html lang="en" className="h-full">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
@@ -36,8 +38,9 @@ export default function RootLayout({
             <AuthHeader />
             {children}
             <Toaster />
-          </body>
-        </html>
+            </body>
+          </html>
+        </Authenticated>
       </Providers>
     </ClerkProvider>
   );

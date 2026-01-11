@@ -164,6 +164,14 @@ history2 = model2.fit(
 results2 = model2.evaluate(X2_test_scaled, y2_test, verbose=0)
 print(f"Model 2 Test Accuracy: {results2[1]:.4f}")
 
+# Calculate representative lat/lon for each neighbourhood
+print("Calculating neighbourhood coordinates...")
+neighbourhood_coords = df.groupby('NEIGHBOURHOOD_CLEAN_encoded').agg({
+    'LAT_R': 'mean',
+    'LON_R': 'mean'
+}).to_dict('index')
+print(f"✓ Calculated coordinates for {len(neighbourhood_coords)} neighbourhoods")
+
 # ============================================
 # MODEL 3: (location + event_subtype) → datetime (hour prediction)
 # ============================================
@@ -243,6 +251,7 @@ metadata = {
     'subtype_labels': subtype_labels,
     'subtype_to_int': subtype_to_int,
     'num_neighbourhoods': num_neighbourhoods,
+    'neighbourhood_coords': neighbourhood_coords,
     'model1_features': ['year', 'month', 'day', 'hour', 'day_of_week', 'is_weekend', 'is_night', 
                         'quarter', 'season_encoded', 'NEIGHBOURHOOD_CLEAN_encoded', 
                         'LAT_R', 'LON_R', 'lat_zone', 'lon_zone'],
