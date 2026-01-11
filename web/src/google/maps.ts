@@ -180,6 +180,41 @@ export async function searchNearby(filter: SearchNearbyFilter): Promise<CleanedP
       },
     },
     rankPreference: filter.rankPreference ? filter.rankPreference : undefined,
+  }, {
+    otherArgs: {
+      headers: {
+        'X-Goog-FieldMask': [
+          'places.name',
+          'places.id',
+          'places.types',
+          'places.primaryType',
+          'places.nationalPhoneNumber',
+          'places.shortFormattedAddress',
+          'places.location',
+          'places.rating',
+          'places.googleMapsUri',
+          'places.websiteUri',
+          'places.currentOpeningHours',
+          'places.editorialSummary',
+          'places.generativeSummary',
+          'places.reviews',
+          'places.reviewSummary',
+          'places.outdoorSeating',
+          'places.liveMusic',
+          'places.menuForChildren',
+          'places.servesCocktails',
+          'places.servesDessert',
+          'places.servesCoffee',
+          'places.goodForChildren',
+          'places.allowsDogs',
+          'places.restroom',
+          'places.goodForGroups',
+          'places.goodForWatchingSports',
+          'places.parkingOptions',
+          'places.priceRange',
+        ].join(',')
+      }
+    }
   })
   return response[0]?.places?.filter((place) => !!place.id && !!place.name).map((place) => cleanPlace(place)).filter(Boolean) ?? [];
 }
@@ -203,6 +238,41 @@ export async function textSearchPlaces(query: string, options: TextSearchPlacesO
     ...(options.priceLevels ? {
       priceLevels: options.priceLevels.map((level) => googlePlaces.maps.places.v1.PriceLevel[level]),
     } : {}),
+  }, {
+    otherArgs: {
+      headers: {
+        'X-Goog-FieldMask': [
+          'places.name',
+          'places.id',
+          'places.types',
+          'places.primaryType',
+          'places.nationalPhoneNumber',
+          'places.shortFormattedAddress',
+          'places.location',
+          'places.rating',
+          'places.googleMapsUri',
+          'places.websiteUri',
+          'places.currentOpeningHours',
+          'places.editorialSummary',
+          'places.generativeSummary',
+          'places.reviews',
+          'places.reviewSummary',
+          'places.outdoorSeating',
+          'places.liveMusic',
+          'places.menuForChildren',
+          'places.servesCocktails',
+          'places.servesDessert',
+          'places.servesCoffee',
+          'places.goodForChildren',
+          'places.allowsDogs',
+          'places.restroom',
+          'places.goodForGroups',
+          'places.goodForWatchingSports',
+          'places.parkingOptions',
+          'places.priceRange',
+        ].join(',')
+      }
+    }
   })
   return response[0]?.places?.filter((place) => !!place.id && !!place.name).map((place) => cleanPlace(place)).filter(Boolean) ?? [];
 }
